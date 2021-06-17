@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: true,
 };
 
 export const uiSlice = createSlice({
-  name: "ui",
+  name: 'ui',
   initialState,
   reducers: {
     setLoading: (state, action) => {
@@ -15,8 +15,6 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { toggleSort } = uiSlice.actions;
-
-export const loadingSelector = (state) => state.ui.loading;
+export const { setLoading } = uiSlice.actions;
 
 export const uiReducer = uiSlice.reducer;
