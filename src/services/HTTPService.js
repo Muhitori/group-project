@@ -30,15 +30,13 @@ export class HTTPService {
       return response.json();
     }
 
-    const errorObject = {
-      message: response.message,
-      status: response.status,
-    };
-
     if (response.status === 401) {
       window.location.assign('/login');
     }
 
-    throw new Error(errorObject);
+    throw new CustomError({
+      message: response.message,
+      status: response.status,
+    });
   }
 }
