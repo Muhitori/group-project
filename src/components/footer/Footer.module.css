@@ -1,0 +1,51 @@
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-top: 10px;
+  padding-top: 15px;
+  min-height: 50px;
+  background-color: #cbcbe6;
+}
+
+.container {
+  margin-left: 50px;
+  margin-right: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.link {
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+}
+.privacyNav {
+  display: flex;
+  list-style-type: none;
+}
+.privacyNavItem {
+  margin-right: 20px;
+}
+
+.privacyNavItem:last-child {
+  margin-right: 0px;
+}
+
+.itemLink:hover {
+  color: blue;
+}
+
+.signNav {
+  display: flex;
+  list-style-type: none;
+}
+
+.signNavItem {
+  margin-right: 20px;
+}
+
+.signNavItem:last-child {
+  margin-right: 0px;
+}
