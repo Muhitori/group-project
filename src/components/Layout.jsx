@@ -4,10 +4,10 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from 'react-router-dom';
-import { Header } from '../../header/Header';
-import { Footer } from '../Footer';
-import { Contacts } from '../../Contacts';
-import { Cart } from '../../Cart';
+import { Header } from './Header';
+import { Footer } from './Footer';
+import { Contacts } from './Contacts';
+import { Cart } from './Cart';
 
 export function Layout() {
   return (
