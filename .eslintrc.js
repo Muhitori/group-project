@@ -21,5 +21,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-param-reassign': 0,
     'class-methods-use-this': 0,
+    'no-confusing-arrow': 0,
   },
 };
