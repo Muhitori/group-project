@@ -24,19 +24,18 @@ export class HTTPService {
   }
 
   static async parseResponse(response) {
+    const errorObject = {
+      message: response.message,
+      status: response.status,
+    };
+
     if (response.status === 401) {
       window.location.assign('/login');
-      throw new Error({
-        message: response.message,
-        status: response.status,
-      });
+      throw new Error(errorObject);
     }
 
     if (!response.ok) {
-      throw new Error({
-        message: response.message,
-        status: response.status,
-      });
+      throw new Error(errorObject);
     }
 
     const data = await response.json();
