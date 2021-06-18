@@ -37,7 +37,6 @@ export class HTTPService {
 
     if (response.status === 401) {
       window.location.assign('/login');
-      throw new CustomError(errorObject);
     }
 
     throw new Error(errorObject);
