@@ -38,7 +38,6 @@ export class HTTPService {
       throw new Error(errorObject);
     }
 
-    const data = await response.json();
-    return data;
+    return response.json();
   }
 }
