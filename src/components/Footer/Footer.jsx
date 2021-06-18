@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useStyle } from '../styles/Footer';
+import { useStyle } from './Styles';
 
 export const Footer = () => {
   const classes = useStyle();

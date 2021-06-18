@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useStyle } from '../styles/Header';
+import { useStyle } from './Styles';
 
 export const Header = () => {
   const classes = useStyle();
