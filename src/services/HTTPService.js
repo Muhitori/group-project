@@ -1,3 +1,5 @@
+import { CustomError } from './CustomError';
+
 export class HTTPService {
   static async request(url, method, headers, body) {
     const response = await fetch(url, {
@@ -24,6 +26,10 @@ export class HTTPService {
   }
 
   static async parseResponse(response) {
+    if (response.ok) {
+      return response.json();
+    }
+
     const errorObject = {
       message: response.message,
       status: response.status,
@@ -31,13 +37,9 @@ export class HTTPService {
 
     if (response.status === 401) {
       window.location.assign('/login');
-      throw new Error(errorObject);
+      throw new CustomError(errorObject);
     }
 
-    if (!response.ok) {
-      throw new Error(errorObject);
-    }
-
-    return response.json();
+    throw new Error(errorObject);
   }
 }
