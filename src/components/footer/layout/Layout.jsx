@@ -14,13 +14,9 @@ export function Layout() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/" render={() => <Redirect to="/books" />} />
-        <Route path="/contacts">
-          <Contacts />
-        </Route>
-        <Route path="/cart">
-          <Cart />
-        </Route>
+        <Route exact path="/" render={() => <Redirect to="/books" />} />
+        <Route path="/contacts" render={() => <Contacts />} />
+        <Route path="/cart" render={() => <Cart />} />
       </Switch>
       <Footer />
     </Router>
