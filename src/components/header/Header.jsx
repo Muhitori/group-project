@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import s from './Header.module.css';
 
 const useStyle = makeStyles({
   header: {
@@ -54,7 +53,7 @@ export const Header = () => {
       <div className={classes.container}>
         <div className={classes.headerLogo}>
           <img
-            className={s.logo}
+            className={classes.logo}
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdCg-AVkxDWa6hSJT7JS_S-4vc2T2F8yKyI_2o04qi602dxnKlN2mDpyOhAQ7oycUX&usqp=CAU"
             alt="logo"
           />
