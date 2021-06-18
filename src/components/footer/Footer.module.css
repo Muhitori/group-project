@@ -49,3 +49,6 @@
 .signNavItem:last-child {
   margin-right: 0px;
 }
+.logoLink {
+  margin-bottom: 10px;
+}

@@ -1,18 +1,25 @@
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from 'react-router-dom';
 import { Header } from '../../header/Header';
 import { Footer } from '../Footer';
 import { Contacts } from '../../Contacts';
-// import s from './Layout.module.css';
+import { Cart } from '../../Cart';
 
 export function Layout() {
   return (
     <Router>
       <Header />
-      {/* <div className={s.content}></div> */}
       <Switch>
-        <Route path="/" exact></Route>
+        <Route path="/" render={() => <Redirect to="/books" />} />
         <Route path="/contacts">
           <Contacts />
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
       </Switch>
       <Footer />

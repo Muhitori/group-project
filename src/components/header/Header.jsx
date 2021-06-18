@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Header.module.css';
+import { Cart } from '../Cart';
 
 export const Header = () => (
   <header className={s.header}>

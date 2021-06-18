@@ -17,9 +17,11 @@ export const Footer = () => (
           </NavLink>
         </li>
       </ul>
-      <div>
-        <a href="/main">GetBooks</a>
-        <p>2019-2020 GetBooks,inc</p>
+      <div className="">
+        <NavLink className={s.logoLink} to="/#">
+          GetBooks, inc
+        </NavLink>
+        <p>2019-2021</p>
       </div>
       <ul className={s.signNav}>
         <li className={s.signNavItem}>
