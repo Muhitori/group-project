@@ -1,20 +1,16 @@
 export class HTTPService {
   static async request(url, method, headers, body) {
-    try {
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          ...headers,
-        },
-        body: JSON.stringify(body),
-      });
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      body: JSON.stringify(body),
+    });
 
-      const data = await this.parseResponse(response);
-      return data;
-    } catch (error) {
-      return error.message;
-    }
+    const data = await this.parseResponse(response);
+    return data;
   }
 
   static async get(url, options) {
@@ -30,11 +26,17 @@ export class HTTPService {
   static async parseResponse(response) {
     if (response.status === 401) {
       window.location.assign('/login');
-      throw new Error(response.status);
+      throw new Error({
+        message: response.message,
+        status: response.status,
+      });
     }
 
     if (!response.ok) {
-      throw new Error(response.status);
+      throw new Error({
+        message: response.message,
+        status: response.status,
+      });
     }
 
     const data = await response.json();
