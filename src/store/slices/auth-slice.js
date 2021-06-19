@@ -25,7 +25,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    clearAuthState: (state) => {
+      state = initialState;
+      return state;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.fulfilled, (state, action) => {
@@ -36,5 +41,7 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const { clearAuthState } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
