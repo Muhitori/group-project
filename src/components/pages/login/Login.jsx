@@ -7,62 +7,28 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useStyle } from './Styles';
 import { getUserAsync, loginAsync } from '../../../store/slices/auth-slice';
+import { validateEmail, validatePassword } from '../../../utils/validation';
 
 export const Login = () => {
   const classes = useStyle();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailErrorMsg, setEmailErrorMsg] = useState('');
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const dispatch = useDispatch();
-
-  const validateEmail = (testEmail) => {
-    const emailRegExp = /\S+@\S+\.\S+/;
-    if (!email) {
-      setEmailErrorMsg('Enter email');
-      return false;
-    }
-
-    if (!emailRegExp.test(testEmail)) {
-      setEmailErrorMsg('Wrong email');
-      return false;
-    }
-
-    setEmailErrorMsg('');
-    return true;
-  };
-
-  const validatePassword = (testPassword) => {
-    if (password.length < 6) {
-      setPasswordErrorMsg('To short password');
-      return false;
-    }
-
-    if (!/^[a-zA-Z0-9]*$/.test(testPassword)) {
-      setPasswordErrorMsg('Password contains invalid characters');
-      return false;
-    }
-
-    if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/.test(testPassword)) {
-      setPasswordErrorMsg(
-        'Password must contain at least one number, uppercase and lowercase letter'
-      );
-      return false;
-    }
-
-    setPasswordErrorMsg('');
-    return true;
-  };
 
   const submit = async (e) => {
     e.preventDefault();
 
-    const isValidEmail = validateEmail(email);
-    const isValidPassword = validatePassword(password);
+    const emailErrorMsg = validateEmail(email);
+    const passwordErrorMsg = validatePassword(password);
 
-    if (isValidEmail && isValidPassword) {
+    setEmailError(emailErrorMsg);
+    setPasswordError(passwordErrorMsg);
+
+    if (!emailErrorMsg && !passwordErrorMsg) {
       const action = await dispatch(loginAsync({ email, password }));
 
       if (action.payload?.token) {
@@ -89,8 +55,8 @@ export const Login = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                error={!!emailErrorMsg}
-                helperText={emailErrorMsg}
+                error={!!emailError}
+                helperText={emailError}
                 onChange={({ target }) => setEmail(target.value)}
               />
             </Grid>
@@ -104,8 +70,8 @@ export const Login = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                error={!!passwordErrorMsg}
-                helperText={passwordErrorMsg}
+                error={!!passwordError}
+                helperText={passwordError}
                 onChange={({ target }) => setPassword(target.value)}
               />
             </Grid>
