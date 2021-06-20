@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { hasErrorsSelector } from '../../store/selectors/ui-selector';
 import { ErrorNotifications } from '../common/error/ErrorNotifications';
-import { HiddenComponent } from '../common/HiddenComponent';
 import { Routing } from '../layout/Routing';
 import { useStyle } from './Styles';
 
@@ -11,9 +10,7 @@ export const Main = () => {
   return (
     <main className={classes.main}>
       <Routing />
-      <HiddenComponent isShow={hasErrors}>
-        <ErrorNotifications />
-      </HiddenComponent>
+      {hasErrors && <ErrorNotifications />}
     </main>
   );
 };
