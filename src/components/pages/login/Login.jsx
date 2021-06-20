@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {
+  Button,
+  TextField,
+  Grid,
+  Typography,
+  Container,
+} from '@material-ui/core';
 import { useStyle } from './Styles';
 import { getUserAsync, loginAsync } from '../../../store/slices/auth-slice';
 import { validateEmail, validatePassword } from '../../../utils/validation';
@@ -57,7 +59,7 @@ export const Login = () => {
                 autoComplete="email"
                 error={!!emailError}
                 helperText={emailError}
-                onChange={({ target }) => setEmail(target.value)}
+                onChange={({ target }) => setEmail(target.value.trim())}
               />
             </Grid>
             <Grid item xs={12}>
@@ -72,11 +74,12 @@ export const Login = () => {
                 autoComplete="current-password"
                 error={!!passwordError}
                 helperText={passwordError}
-                onChange={({ target }) => setPassword(target.value)}
+                onChange={({ target }) => setPassword(target.value.trim())}
               />
             </Grid>
           </Grid>
           <Button
+            disabled={!email || !password}
             type="submit"
             fullWidth
             variant="contained"
