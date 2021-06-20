@@ -8011,6 +8011,12 @@
     "Horror",
     "Humor"
   ],
-  "users": [],
+  "users": [
+    {
+      "email": "turevich@gmail.com",
+      "password": "$2a$10$YJ8nRtafKqxysRP6BxUAcuGytVt27kPbMGB1uTjwZ.1DyP2uBLKFK",
+      "id": 1
+    }
+  ],
   "orders": []
 }
