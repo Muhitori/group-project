@@ -8,9 +8,7 @@ export const Footer = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch(clearAuthState());
-  };
+  const logout = () => dispatch(clearAuthState());
 
   return (
     <footer className={classes.footer}>

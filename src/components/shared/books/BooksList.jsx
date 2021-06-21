@@ -10,7 +10,6 @@ import { Spinner } from '../loader/loader';
 const BooksList = () => {
   const [loading, setLoading] = useState(true);
 
-  const baseUrl = 'http://localhost:3000/books';
   const dispatch = useDispatch();
   const products = useSelector(productListSelector);
   const token = useSelector(tokenSelector);
@@ -21,7 +20,7 @@ const BooksList = () => {
   }, []);
 
   const productCards = products.map((product) => (
-    <BookCard key={product.id} {...product} url={baseUrl} />
+    <BookCard key={product.id} {...product} />
   ));
 
   return (

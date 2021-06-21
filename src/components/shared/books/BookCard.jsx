@@ -3,15 +3,26 @@ import { Card, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ShareIcon from '@material-ui/icons/Share';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCardStyles } from './styles';
 
-// eslint-disable-next-line object-curly-newline
-const BookCard = ({ id, title, img, description, url }) => {
+const BookCard = ({ id, title, img, description }) => {
   const classes = useCardStyles();
 
+  const onStarClick = (e) => {
+    e.preventDefault();
+  };
+
+  const onShareClick = (e) => {
+    e.preventDefault();
+  };
+
+  const onDeleteClick = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <NavLink to={`books/${id}`}>
+    <Link to={`books/${id}`}>
       <Card className={classes.root} variant="outlined">
         <Box className={classes.footer}>
           <div>
@@ -22,23 +33,27 @@ const BookCard = ({ id, title, img, description, url }) => {
 
           <div className={classes.cardButtons}>
             <div>
-              <button type="submit" className={classes.star}>
+              <button
+                type="submit"
+                onClick={onStarClick}
+                className={classes.star}
+              >
                 <StarBorderIcon />
               </button>
 
-              <button type="submit">
+              <button onClick={onShareClick} type="submit">
                 <ShareIcon />
               </button>
             </div>
             <div className="rightButtonsComposition">
-              <button type="submit">
+              <button onClick={onDeleteClick} type="submit">
                 <DeleteIcon />
               </button>
             </div>
           </div>
         </Box>
       </Card>
-    </NavLink>
+    </Link>
   );
 };
 
@@ -47,7 +62,6 @@ BookCard.propTypes = {
   title: PropTypes.string,
   img: PropTypes.string,
   description: PropTypes.string,
-  url: PropTypes.string,
 };
 
 BookCard.defaultProps = {
@@ -55,7 +69,6 @@ BookCard.defaultProps = {
   title: '',
   img: '',
   description: '',
-  url: 'http://localhost:3010/books',
 };
 
 export { BookCard };
