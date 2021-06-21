@@ -59,7 +59,7 @@ export const Login = () => {
                 autoComplete="email"
                 error={!!emailError}
                 helperText={emailError}
-                onChange={({ target }) => setEmail(target.value.trim())}
+                onChange={({ target }) => setEmail(target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -74,7 +74,7 @@ export const Login = () => {
                 autoComplete="current-password"
                 error={!!passwordError}
                 helperText={passwordError}
-                onChange={({ target }) => setPassword(target.value.trim())}
+                onChange={({ target }) => setPassword(target.value)}
               />
             </Grid>
           </Grid>
