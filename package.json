@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
     "@reduxjs/toolkit": "^1.6.0",
     "concurrently": "^6.2.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-jss": "^10.6.0",
@@ -20,7 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3010 --delay 200",
-    "dev": "concurrently \"yarn start\" \"yarn server\"",
+    "dev": "concurrently \"npm start\" \"npm run server\"",
     "lint": "eslint ./src/*.js",
     "lint:fix": "eslint --fix ./src/*.js",
     "prettier": ""

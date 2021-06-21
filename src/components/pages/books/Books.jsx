@@ -1,4 +1,7 @@
-/* eslint-disable arrow-body-style */
-export const Books = () => {
-  return <div>Books</div>;
-};
+import { BooksList } from '../../shared/books/BooksList';
+
+export const Books = () => (
+  <>
+    <BooksList />
+  </>
+);

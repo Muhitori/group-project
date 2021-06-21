@@ -22,12 +22,16 @@ export function Layout() {
         <Route
           exact
           path="/"
-          render={() => token ? <Redirect to="/books" /> : <Redirect to="/login" />}
+          render={() =>
+            token ? <Redirect to="/books" /> : <Redirect to="/login" />
+          }
         />
+
         <Route
           path="/login"
           render={() => (token ? <Redirect to="/books" /> : <Login />)}
         />
+
         <Route
           path="/books"
           render={() => (token ? <Books /> : <Redirect to="/login" />)}

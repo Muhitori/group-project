@@ -2,8 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyle = makeStyles({
   header: {
+    width: '100%',
     marginTop: 10,
     minHeight: 50,
+    position: 'fixed',
   },
   container: {
     marginLeft: 50,
