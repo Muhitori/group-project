@@ -32,8 +32,7 @@ export const Login = () => {
 
     if (!emailErrorMsg && !passwordErrorMsg) {
       const action = await dispatch(loginAsync({ email, password }));
-
-      if (action.payload?.token) {
+      if (action.meta.requestStatus === 'fulfilled') {
         dispatch(getUserAsync(action.payload.token));
       }
     }

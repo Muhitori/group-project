@@ -22,6 +22,5 @@ module.exports = {
     'no-param-reassign': 0,
     'class-methods-use-this': 0,
     'no-confusing-arrow': 0,
-    'react/jsx-props-no-spreading': 0,
   },
 };
