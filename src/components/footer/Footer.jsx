@@ -1,18 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
-import { clearAuthState } from '../../store/slices/auth-slice';
 import { useStyle } from './Styles';
 
 export const Footer = () => {
   const classes = useStyle();
-  const dispatch = useDispatch();
-
-  const logout = () => dispatch(clearAuthState());
 
   return (
     <footer className={classes.footer}>
-      <div className={classes.container}>
+      <Container className={classes.container}>
         <ul className={classes.privacyNav}>
           <li className={classes.privacyNavItem}>
             <NavLink className={classes.itemLink} to="/#">
@@ -25,7 +21,7 @@ export const Footer = () => {
             </NavLink>
           </li>
         </ul>
-        <div className="">
+        <div className={classes.footerCenter}>
           <NavLink className={classes.logoLink} to="/#">
             GetBooks, inc
           </NavLink>
@@ -43,12 +39,12 @@ export const Footer = () => {
             </NavLink>
           </li>
           <li className={classes.signNavItem}>
-            <NavLink className={classes.itemLink} to="/#" onClick={logout}>
-              Log out
+            <NavLink className={classes.itemLink} to="/#">
+              Sign In
             </NavLink>
           </li>
         </ul>
-      </div>
+      </Container>
     </footer>
   );
 };

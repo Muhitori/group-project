@@ -1,24 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { LIGHT_COLOR } from '../../utils/consts';
 
-export const useStyle = makeStyles({
+export const useStyle = makeStyles((theme) => ({
   footer: {
-    width: '100%',
-    position: 'fixed',
-    bottom: 0,
-    right: 0,
-    marginTop: 10,
-    paddingTop: 15,
-    minHeight: 50,
+    marginTop: 'auto',
+    backgroundColor: LIGHT_COLOR,
   },
   container: {
-    marginLeft: 50,
-    marginRright: 50,
+    maxWidth: '100%',
+    padding: theme.spacing(3),
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   privacyNavItem: {
-    marginRight: 20,
+    marginRight: theme.spacing(3),
   },
   itemLink: {
     '&:hover': {
@@ -26,14 +22,14 @@ export const useStyle = makeStyles({
     },
   },
   logoLink: {
-    marginBottom: 10,
+    marginBottom: theme.spacing(2),
   },
   signNav: {
     display: 'flex',
     listStyleType: 'none',
   },
   signNavItem: {
-    marginRight: 20,
+    marginRight: theme.spacing(3),
     '&:last-child': {
       color: 'blue',
     },
@@ -42,4 +38,9 @@ export const useStyle = makeStyles({
     display: 'flex',
     listStyleType: 'none',
   },
-});
+  footerCenter: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+}));
