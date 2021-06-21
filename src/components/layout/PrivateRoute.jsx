@@ -17,5 +17,5 @@ PrivateRoute.propTypes = {
 };
 
 PrivateRoute.defaultProps = {
-  path: '',
+  path: '/',
 };
