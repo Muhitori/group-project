@@ -1,44 +1,22 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
+import { LIGHT_COLOR } from '../../utils/consts';
 
-export const useStyle = makeStyles({
-  header: {
-    marginTop: 10,
-    minHeight: 50,
-  },
+export const useStyle = makeStyles((theme) => ({
   container: {
-    marginLeft: 50,
-    marginRight: 50,
-    display: 'flex',
+    maxWidth: '100%',
+    padding: theme.spacing(0, 2),
+  },
+  toolbar: {
+    borderBottom: `1px solid ${LIGHT_COLOR}`,
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+  toolbarSecondary: {
     justifyContent: 'space-between',
-    alignItems: 'center',
+    overflowX: 'auto',
   },
-  headerNav: {
-    display: 'flex',
+  toolbarButton: {
+    marginLeft: theme.spacing(2),
   },
-  headerLogo: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    marginRight: 20,
-  },
-  navItem: {
-    marginRight: 30,
-    minWidth: 50,
-    listStyleType: 'none',
-    '&:last-child': {
-      marginRight: 0,
-    },
-  },
-  log: {
-    padding: 5,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'black',
-    borderRadius: 3,
-    '&:hover': {
-      backgroundColor: 'rgb(50, 50, 112)',
-      color: 'white',
-    },
-  },
-});
+}));
