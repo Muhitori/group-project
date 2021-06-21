@@ -3,16 +3,7 @@ import { nanoid } from 'nanoid';
 
 const initialState = {
   loading: true,
-  errors: [
-    {
-      id: '1',
-      message: 'page not found',
-    },
-    {
-      id: '2',
-      message: 'other error',
-    },
-  ],
+  errors: [],
 };
 
 export const uiSlice = createSlice({
