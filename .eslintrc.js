@@ -22,5 +22,10 @@ module.exports = {
     'no-param-reassign': 0,
     'class-methods-use-this': 0,
     'no-confusing-arrow': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/forbid-prop-types': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'arrow-body-style': 0,
   },
 };

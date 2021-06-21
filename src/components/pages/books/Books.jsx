@@ -1,1 +1,9 @@
-export const Books = () => (<div>Books</div>);
+import { Carousel } from '../../common/carousel/Carousel';
+
+export const Books = () => {
+  return (
+    <>
+      <Carousel />
+    </>
+  );
+};
