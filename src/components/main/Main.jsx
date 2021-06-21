@@ -1,3 +1,4 @@
+import { Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { hasErrorsSelector } from '../../store/selectors/ui-selector';
 import { ErrorNotifications } from '../common/error/ErrorNotifications';
@@ -9,8 +10,10 @@ export const Main = () => {
   const hasErrors = useSelector(hasErrorsSelector);
   return (
     <main className={classes.main}>
-      <Routing />
-      {hasErrors && <ErrorNotifications />}
+      <Container maxWidth="lg">
+        <Routing />
+        {hasErrors && <ErrorNotifications />}
+      </Container>
     </main>
   );
 };
