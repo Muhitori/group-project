@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyle = makeStyles(() => ({
+export const useStyle = makeStyles({
   carousel: {
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -19,4 +19,4 @@ export const useStyle = makeStyles(() => ({
     fontSize: '100px',
     opacity: '0.7',
   },
-}));
+});
