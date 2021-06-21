@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {
+  Button,
+  TextField,
+  Grid,
+  Typography,
+  Container,
+} from '@material-ui/core';
 import { useStyle } from './Styles';
 import { getUserAsync, loginAsync } from '../../../store/slices/auth-slice';
 import { validateEmail, validatePassword } from '../../../utils/validation';
@@ -30,8 +32,7 @@ export const Login = () => {
 
     if (!emailErrorMsg && !passwordErrorMsg) {
       const action = await dispatch(loginAsync({ email, password }));
-
-      if (action.payload?.token) {
+      if (action.meta.requestStatus === 'fulfilled') {
         dispatch(getUserAsync(action.payload.token));
       }
     }
@@ -77,6 +78,7 @@ export const Login = () => {
             </Grid>
           </Grid>
           <Button
+            disabled={!email || !password}
             type="submit"
             fullWidth
             variant="contained"

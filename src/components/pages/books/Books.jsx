@@ -1,4 +1,1 @@
-/* eslint-disable arrow-body-style */
-export const Books = () => {
-  return <div>Books</div>;
-};
+export const Books = () => (<div>Books</div>);
