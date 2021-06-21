@@ -1,4 +1,9 @@
-/* eslint-disable arrow-body-style */
+import { Carousel } from '../../shared/carousel/Carousel';
+
 export const Books = () => {
-  return <div>Books</div>;
+  return (
+    <>
+      <Carousel />
+    </>
+  );
 };
