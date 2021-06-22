@@ -28,7 +28,7 @@
     "lint": "eslint src/**/*.js src/**/*.jsx",
     "lint:fix": "eslint --fix src/**/*.js src/**/*.jsx",
     "prettier": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js",
-    "prepare": "husky install"
+    "prepare": "husky install && npx husky add .husky/pre-commit 'npm run lint'"
   },
   "eslintConfig": {
     "extends": [
