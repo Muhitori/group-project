@@ -11,6 +11,7 @@ export function Layout() {
       <Router>
         <Header />
         <Main />
+
         <Footer />
       </Router>
     </div>
