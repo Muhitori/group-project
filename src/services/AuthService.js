@@ -1,19 +1,19 @@
 import { HTTPService } from './HTTPService';
+import { API_URL } from '../utils/constants';
 
 export class AuthService {
-  constructor() {
-    this.baseUrl = 'http://localhost:3010';
-  }
-
-  async login({ password, email }) {
-    const data = await HTTPService.post(`${this.baseUrl}/login`, { password, email });
+  static async login({ password, email }) {
+    const data = await HTTPService.post(`${API_URL}/login`, {
+      password,
+      email,
+    });
     return data;
   }
 
-  async getCurrentUser(token) {
-    const data = await HTTPService.get(`${this.baseUrl}/users`, { Authorization: `Bearer ${token}` });
+  static async getCurrentUser(token) {
+    const data = await HTTPService.get(`${API_URL}/users`, {
+      Authorization: `Bearer ${token}`,
+    });
     return data;
   }
 }
-
-export const authService = new AuthService();
