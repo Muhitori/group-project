@@ -11,6 +11,10 @@ export const Carousel = () => {
 
   const settings = {
     dots: true,
+    lazyLoad: true,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
     className: classes.carousel,
     prevArrow: <SlideArrow />,
     nextArrow: <SlideArrow />,
