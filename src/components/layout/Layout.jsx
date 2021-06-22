@@ -7,7 +7,7 @@ import { useStyles } from './Styles';
 export function Layout() {
   const classes = useStyles();
   return (
-    <div className={classes.pageContainer}>
+    <div className={classe.pageContainer}>
       <Router>
         <Header />
         <Main />
