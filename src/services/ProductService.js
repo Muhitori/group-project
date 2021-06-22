@@ -8,4 +8,11 @@ export class ProductService {
     });
     return data;
   }
+
+  static async getProductById({ id, token }) {
+    const data = await HTTPService.get(`${API_URL}/products/${id}`, {
+      Authorization: `Bearer ${token}`,
+    });
+    return data;
+  }
 }
