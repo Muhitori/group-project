@@ -2,20 +2,19 @@ import { HTTPService } from './HTTPService';
 import { API_URL } from '../utils/constants';
 
 export class ProductService {
-  static limit = 24;
+  static limit = 300;
 
   static page = 1;
 
-  static parseLinkHeader(linkHeader) {
-    const linkHeadersArray = linkHeader
-      .split(', ')
-      .map((header) => header.split('; '));
-    const linkHeadersMap = linkHeadersArray.map((header) => {
-      const thisHeaderRel = header[1].replace(/"/g, '').replace('rel=', '');
-      const thisHeaderUrl = header[0].slice(1, -1);
-      return [thisHeaderRel, thisHeaderUrl];
-    });
-    return Object.fromEntries(linkHeadersMap);
+  static getNextPageFromHeader(linkHeader) {
+    const linkHeadersArray = linkHeader.split(', ');
+    const nextPageRel = linkHeadersArray
+      .find((element) => element.includes('next'));
+    if (!nextPageRel) {
+      return '';
+    }
+    const nextPageUrl = nextPageRel.split('; ')[0].slice(1, -1);
+    return nextPageUrl;
   }
 
   static async getProducts({ link, token }) {
@@ -23,7 +22,7 @@ export class ProductService {
     const { data, headers } = await HTTPService.get(requestLink, {
       Authorization: `Bearer ${token}`,
     });
-    const { next } = this.parseLinkHeader(headers.get('Link'));
+    const next = this.getNextPageFromHeader(headers.get('Link'));
     return { data, next };
   }
 }
