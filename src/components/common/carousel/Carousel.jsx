@@ -14,7 +14,7 @@ export const Carousel = () => {
     lazyLoad: true,
     autoplay: true,
     speed: 2000,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 10000,
     className: classes.carousel,
     prevArrow: <SlideArrow />,
     nextArrow: <SlideArrow />,
