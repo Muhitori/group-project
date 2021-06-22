@@ -6,17 +6,16 @@ export const useStyle = makeStyles({
     marginRight: 'auto',
     width: '90%',
   },
-  slideContent: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-  },
   slideNumber: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     fontSize: '100px',
-    opacity: '0.7',
+    color: 'white',
+    opacity: '0.5',
+  },
+  slideImg: {
+    width: '100%',
   },
 });

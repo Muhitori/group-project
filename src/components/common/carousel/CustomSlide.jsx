@@ -1,24 +1,29 @@
+import { Box } from '@material-ui/core';
 import { PropTypes } from 'prop-types';
 import { useStyle } from './Styles';
 
-export const CustomSlide = ({ number }) => {
+export const CustomSlide = ({ slideNumber, imageUrl }) => {
   const classes = useStyle();
 
   return (
-    <div className={classes.slideContent}>
-      <div className={classes.slideNumber}>{number}</div>
-      <img
-        src="https://shareconomy-prod.s3.amazonaws.com/uploads/blog/blog_image/9/landscape_900_x_300_px.jpg"
-        alt=""
-      />
-    </div>
+    <Box
+      position="relative"
+      display="flex"
+      justifyContent="center"
+      maxHeight="400px"
+    >
+      <div className={classes.slideNumber}>{slideNumber}</div>
+      <img className={classes.slideImg} src={imageUrl} alt="" />
+    </Box>
   );
 };
 
 CustomSlide.propTypes = {
-  number: PropTypes.number,
+  slideNumber: PropTypes.number,
+  imageUrl: PropTypes.string,
 };
 
 CustomSlide.defaultProps = {
-  number: 0,
+  slideNumber: 0,
+  imageUrl: '',
 };
