@@ -1,12 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {
-  Toolbar,
-  Button,
-  Typography,
-  Container
-} from '@material-ui/core';
+import { Toolbar, Button, Typography, Container } from '@material-ui/core';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import { clearAuthState } from '../../store/slices/auth-slice';
 import { tokenSelector } from '../../store/selectors/auth-selector';
@@ -32,12 +27,11 @@ export const Header = () => {
             variant="h5"
             color="inherit"
             align="center"
-            noWrap
             className={classes.toolbarTitle}
           >
             Books
           </Typography>
-          <NavLink color="primary" noWrap variant="h6" to="/contacts">
+          <NavLink color="primary" variant="h6" to="/contacts">
             Contacts
           </NavLink>
           {isLogin && (

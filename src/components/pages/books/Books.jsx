@@ -1,1 +1,7 @@
-export const Books = () => (<div>Books</div>);
+import { BooksList } from '../../shared/books/BooksList';
+
+export const Books = () => (
+  <>
+    <BooksList />
+  </>
+);

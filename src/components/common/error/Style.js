@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { MAIN_COLOR } from '../../../utils/consts';
+import { MAIN_COLOR } from '../../../utils/constants';
 
 export const useStyle = makeStyles((theme) => ({
   'error-container': {
