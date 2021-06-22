@@ -1,4 +1,4 @@
-import { useParams, NavLink, useLocation, useHistory } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
@@ -47,11 +47,9 @@ export const BookDetailView = () => {
 
   return (
     <div className={classes.wrap}>
-      <NavLink to="/#">
-        <IconButton className={classes.arrow} onClick={onBackClick}>
-          <ArrowBack />
-        </IconButton>
-      </NavLink>
+      <IconButton className={classes.arrow} onClick={onBackClick}>
+        <ArrowBack />
+      </IconButton>
       <div className={classes.contentWrap}>
         <div className={classes.pictureWrap}>
           <img src={product.img} alt="book" className={classes.image} />
