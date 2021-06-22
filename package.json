@@ -27,7 +27,8 @@
     "dev": "concurrently \"yarn start\" \"yarn server\"",
     "lint": "eslint ./src/** --ext .js --ext .jsx",
     "lint:fix": "eslint --fix ./src/** --ext .js --ext .jsx",
-    "prettier": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js"
+    "prettier": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
