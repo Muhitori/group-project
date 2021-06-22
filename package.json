@@ -25,8 +25,8 @@
     "build": "react-scripts build",
     "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3010 --delay 200",
     "dev": "concurrently \"yarn start\" \"yarn server\"",
-    "lint": "eslint ./src.**/*.{js, jsx}",
-    "lint:fix": "eslint --fix ./src.**/*.{js, jsx}",
+    "lint": "eslint ./src/** --ext .js --ext .jsx",
+    "lint:fix": "eslint --fix ./src/** --ext .js --ext .jsx",
     "prettier": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js"
   },
   "eslintConfig": {

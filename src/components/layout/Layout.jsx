@@ -7,11 +7,10 @@ import { useStyles } from './Styles';
 export function Layout() {
   const classes = useStyles();
   return (
-    <div className={classe.pageContainer}>
+    <div className={classes.pageContainer}>
       <Router>
         <Header />
         <Main />
-
         <Footer />
       </Router>
     </div>
