@@ -25,9 +25,9 @@
     "build": "react-scripts build",
     "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3010 --delay 200",
     "dev": "concurrently \"yarn start\" \"yarn server\"",
-    "lint": "eslint src/**/*.js src/**/*.jsx",
-    "lint:fix": "eslint --fix src/**/*.js src/**/*.jsx",
-    "prettier": "prettier --config ./.prettierrc --write src/**/*.js src/**/*.jsx",
+    "lint": "eslint \"src/**/*.{js, jsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js, jsx}\"",
+    "prettier": "prettier --config ./.prettierrc --write \"src/**/*.{js, jsx}\"",
     "prepare": "husky install && npx husky add .husky/pre-commit 'npm run lint'"
   },
   "eslintConfig": {
