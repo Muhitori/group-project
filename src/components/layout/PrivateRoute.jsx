@@ -8,7 +8,7 @@ import { Login } from '../pages/login/Login';
 export const PrivateRoute = ({ component, path }) => {
   const isLogin = !!useSelector(tokenSelector);
   const finalComponent = isLogin ? component : Login;
-  return <Route path={path} component={finalComponet} />;
+  return <Route path={path} component={finalComponent} />;
 };
 
 PrivateRoute.propTypes = {
