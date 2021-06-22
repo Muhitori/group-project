@@ -28,9 +28,9 @@
     "build": "react-scripts build",
     "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3010 --delay 200",
     "dev": "concurrently \"npm start\" \"npm run server\"",
-    "lint": "eslint ./src/*.js",
-    "lint:fix": "eslint --fix ./src/*.js",
-    "prettier": ""
+    "lint": "eslint \"src/**/*.{js, jsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js, jsx}\"",
+    "prettier": "prettier --config .prettierrc.json --write \"src/**/*.{js, jsx}\""
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +50,11 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run prettier"
+    }
+  },
   "devDependencies": {
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -57,6 +62,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
     "json-server": "^0.15.1",
     "json-server-auth": "^2.0.2",
     "prettier": "2.3.1"
