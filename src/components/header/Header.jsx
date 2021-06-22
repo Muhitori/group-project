@@ -27,7 +27,6 @@ export const Header = () => {
             variant="h5"
             color="inherit"
             align="center"
-            // nowrap
             className={classes.toolbarTitle}
           >
             Books
