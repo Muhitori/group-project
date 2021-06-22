@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { authService } from '../../services/AuthService';
+import { AuthService } from '../../services/AuthService';
 
 export const loginAsync = createAsyncThunk(
   'auth/fetchLogin',
   async ({ password, email }) => {
-    const { accessToken } = await authService.login({ password, email });
+    const { accessToken } = await AuthService.login({ password, email });
     return { token: accessToken };
   }
 );
@@ -12,7 +12,7 @@ export const loginAsync = createAsyncThunk(
 export const getUserAsync = createAsyncThunk(
   'auth/fetchUser',
   async (token) => {
-    const user = await authService.getCurrentUser(token);
+    const user = await AuthService.getCurrentUser(token);
     return { user: user[0] };
   }
 );
