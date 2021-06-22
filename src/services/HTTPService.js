@@ -27,7 +27,8 @@ export class HTTPService {
 
   static async parseResponse(response) {
     if (response.ok) {
-      return { data: response.json(), headers: response.headers };
+      const data = await response.json();
+      return { data, headers: response.headers };
     }
 
     if (response.status === 401) {

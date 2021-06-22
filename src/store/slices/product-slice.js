@@ -6,15 +6,14 @@ import { ProductService } from '../../services/ProductService';
 const initialState = {
   list: [],
   category: '',
+  nextPage: '',
 };
 
 export const getProductsAsync = createAsyncThunk(
   'product/fetch',
-
-  async ({ token }) => {
-    const data = await ProductService.getProducts({ limit: 24, token });
-
-    return data;
+  async ({ link, token }) => {
+    const response = await ProductService.getProducts({ link, token });
+    return { ...response };
   }
 );
 
@@ -24,7 +23,9 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getProductsAsync.fulfilled, (state, action) => {
-      state.list = [...action.payload];
+      const { data, next } = action.payload;
+      state.list = [...data];
+      state.nextPage = next;
     });
   },
 });
