@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { LIGHT_COLOR } from '../../utils/consts';
+import { LIGHT_COLOR } from '../../utils/constants';
 
 export const useStyle = makeStyles((theme) => ({
   footer: {
