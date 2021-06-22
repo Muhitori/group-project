@@ -7,7 +7,7 @@ import { productListSelector } from '../../../store/selectors/product-selector';
 import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { Spinner } from '../loader/loader';
 
-const BooksList = () => {
+export const BooksList = () => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -34,5 +34,3 @@ const BooksList = () => {
     </Box>
   );
 };
-
-export { BooksList };

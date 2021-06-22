@@ -1,8 +1,9 @@
 import { HTTPService } from './HTTPService';
+import { API_URL } from '../utils/constants';
 
 export class ProductService {
   constructor() {
-    this.baseUrl = 'http://localhost:3010';
+    this.baseUrl = API_URL;
   }
 
   async getProducts({ limit, token }) {

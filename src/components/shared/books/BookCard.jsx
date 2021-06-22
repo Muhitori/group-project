@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Card, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import ShareIcon from '@material-ui/icons/Share';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useCardStyles } from './styles';
 
@@ -13,7 +13,7 @@ const BookCard = ({ id, title, img, description }) => {
     e.preventDefault();
   };
 
-  const onShareClick = (e) => {
+  const onAddShoppingClick = (e) => {
     e.preventDefault();
   };
 
@@ -41,8 +41,8 @@ const BookCard = ({ id, title, img, description }) => {
                 <StarBorderIcon />
               </button>
 
-              <button onClick={onShareClick} type="submit">
-                <ShareIcon />
+              <button onClick={onAddShoppingClick} type="submit">
+                <AddShoppingCartIcon />
               </button>
             </div>
             <div className="rightButtonsComposition">

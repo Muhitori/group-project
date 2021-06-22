@@ -29,6 +29,7 @@ export const useCardStyles = makeStyles(() => ({
   cardButtons: {
     display: 'flex',
     justifyContent: 'space-between',
+    marginTop: 15,
   },
   star: {
     marginRight: 15,
