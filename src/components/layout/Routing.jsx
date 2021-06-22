@@ -12,7 +12,7 @@ export function Routing() {
       <PrivateRoute path="/books/:id" component={BookDetailView} />
       <PrivateRoute path="/books" component={Books} />
       <PrivateRoute path="/contacts" component={Contacts} />
-      <PrivateRoute path="/contacts" component={Cart} />
+      <PrivateRoute path="/cart" component={Cart} />
     </Switch>
   );
 }

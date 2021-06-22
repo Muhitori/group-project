@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ProductService } from '../../services/ProductService';
 
-// const productService = new ProductService();
-
 const initialState = {
   list: [],
   category: '',
@@ -10,10 +8,11 @@ const initialState = {
 
 export const getProductsAsync = createAsyncThunk(
   'product/fetch',
-
   async ({ token }) => {
-    const data = await ProductService.getProducts({ limit: 24, token });
-
+    const data = await ProductService.getProducts({
+      limit: 24,
+      token,
+    });
     return data;
   }
 );

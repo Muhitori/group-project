@@ -4,17 +4,30 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useCardStyles } from './styles';
+import {
+  currentUserIdSelector,
+  tokenSelector,
+} from '../../../store/selectors/auth-selector';
+import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
+import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
 
-const BookCard = ({ id, title, img, description }) => {
+const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const classes = useCardStyles();
+
+  const dispatch = useDispatch();
+  const token = useSelector(tokenSelector);
+  const userId = useSelector(currentUserIdSelector);
 
   const onStarClick = (e) => {
     e.preventDefault();
+    dispatch(toggleFavoriteProductAsync({ userId, productId: id, token }));
   };
 
   const onAddShoppingClick = (e) => {
     e.preventDefault();
+    dispatch(toggleCartProductAsync({ userId, productId: id, token }));
   };
 
   const onDeleteClick = (e) => {
@@ -36,12 +49,18 @@ const BookCard = ({ id, title, img, description }) => {
               <button
                 type="submit"
                 onClick={onStarClick}
-                className={classes.star}
+                className={
+                  (classes.star, isFavorite ? classes.isFavorite : null)
+                }
               >
                 <StarBorderIcon />
               </button>
 
-              <button onClick={onAddShoppingClick} type="submit">
+              <button
+                className={inCart ? classes.inCart : null}
+                onClick={onAddShoppingClick}
+                type="submit"
+              >
                 <AddShoppingCartIcon />
               </button>
             </div>
@@ -62,6 +81,8 @@ BookCard.propTypes = {
   title: PropTypes.string,
   img: PropTypes.string,
   description: PropTypes.string,
+  inCart: PropTypes.bool,
+  isFavorite: PropTypes.bool,
 };
 
 BookCard.defaultProps = {
@@ -69,6 +90,8 @@ BookCard.defaultProps = {
   title: '',
   img: '',
   description: '',
+  inCart: false,
+  isFavorite: false,
 };
 
 export { BookCard };
