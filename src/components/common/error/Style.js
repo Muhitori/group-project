@@ -7,10 +7,10 @@ export const useStyle = makeStyles((theme) => ({
     top: theme.spacing(3),
     right: theme.spacing(3),
     minWidth: '20%',
-    zIndex: '10'
+    zIndex: '10',
   },
   error: {
     marginTop: theme.spacing(2),
-    background: MAIN_COLOR
+    background: MAIN_COLOR,
   },
 }));

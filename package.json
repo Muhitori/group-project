@@ -27,8 +27,7 @@
     "dev": "concurrently \"yarn start\" \"yarn server\"",
     "lint": "eslint \"src/**/*.{js, jsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js, jsx}\"",
-    "prettier": "prettier --config .prettierrc.json --write \"src/**/*.{js, jsx}\"",
-    "prepare": "husky install && npx husky add .husky/pre-commit 'npm run lint && npm run prettier'"
+    "format": "prettier --config .prettierrc.json --write \"src/**/*.{js, jsx}\""
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +46,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run format"
+    }
   },
   "devDependencies": {
     "eslint": "^7.28.0",

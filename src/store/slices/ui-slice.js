@@ -17,7 +17,7 @@ export const uiSlice = createSlice({
     createError: (state, action) => {
       const error = {
         id: nanoid(),
-        message: action.payload
+        message: action.payload,
       };
       state.errors = [...state.errors, error];
       return state;
