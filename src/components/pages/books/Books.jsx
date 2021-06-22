@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Carousel } from '../../common/carousel/Carousel';
 
 export const Books = () => {
@@ -7,3 +8,12 @@ export const Books = () => {
     </>
   );
 };
+=======
+import { BooksList } from '../../shared/books/BooksList';
+
+export const Books = () => (
+  <>
+    <BooksList />
+  </>
+);
+>>>>>>> origin

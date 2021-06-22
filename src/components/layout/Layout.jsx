@@ -2,13 +2,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from '../header/Header';
 import { Main } from '../main/Main';
 import { Footer } from '../footer/Footer';
+import { useStyles } from './Styles';
 
 export function Layout() {
+  const classes = useStyles();
   return (
-    <Router>
-      <Header />
-      <Main />
-      <Footer />
-    </Router>
+    <div className={classes.pageContainer}>
+      <Router>
+        <Header />
+        <Main />
+        <Footer />
+      </Router>
+    </div>
   );
 }

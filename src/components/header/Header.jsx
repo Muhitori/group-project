@@ -1,38 +1,61 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { Toolbar, Button, Typography, Container } from '@material-ui/core';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import { clearAuthState } from '../../store/slices/auth-slice';
+import { tokenSelector } from '../../store/selectors/auth-selector';
 import { useStyle } from './Styles';
 
 export const Header = () => {
   const classes = useStyle();
+  const isLogin = useSelector(tokenSelector);
+
+  const dispatch = useDispatch();
+
+  const logout = () => dispatch(clearAuthState());
+
   return (
-    <header className={classes.header}>
-      <div className={classes.container}>
-        <div className={classes.headerLogo}>
-          <img
-            className={classes.logo}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdCg-AVkxDWa6hSJT7JS_S-4vc2T2F8yKyI_2o04qi602dxnKlN2mDpyOhAQ7oycUX&usqp=CAU"
-            alt="logo"
-          />
-          <NavLink to="/#">GetBooks</NavLink>
-        </div>
-        <nav>
-          <ul className={classes.headerNav}>
-            <li className={`${classes.navItem} ${classes.contacts}`}>
-              <NavLink to="/contacts">Contacts</NavLink>
-            </li>
-            <li className={classes.navItem}>
-              <NavLink className={classes.log} to="/cart">
+    <header>
+      <Container className={classes.container}>
+        <Toolbar className={classes.toolbar}>
+          <NavLink to="/books">
+            <LocalLibraryIcon color="primary" fontSize="large" />
+          </NavLink>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="inherit"
+            align="center"
+            className={classes.toolbarTitle}
+          >
+            Books
+          </Typography>
+          <NavLink color="primary" variant="h6" to="/contacts">
+            Contacts
+          </NavLink>
+          {isLogin && (
+            <>
+              <Button
+                variant="contained"
+                size="small"
+                color="primary"
+                className={classes.toolbarButton}
+              >
                 Cart
-              </NavLink>
-            </li>
-            <li className={classes.navItem}>
-              <NavLink className={classes.log} to="/logIn">
-                Log In
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.toolbarButton}
+                onClick={logout}
+              >
+                Log out
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </Container>
     </header>
   );
 };
