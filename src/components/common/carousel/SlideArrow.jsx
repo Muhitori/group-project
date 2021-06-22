@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { sliderArrowColor } from '../../../utils/consts';
+import { sliderArrowColor } from '../../../utils/constants';
 
 export const SlideArrow = ({ className, style, onClick }) => {
   return (
