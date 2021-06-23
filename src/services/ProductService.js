@@ -14,9 +14,9 @@ export class ProductService {
     return pageCount;
   }
 
-  static async getProducts({ token, page = 1 }) {
+  static async getProducts({ token, pageNumber = 1 }) {
     const data = await HTTPService.get(
-      `${this.link}?_limit=${limit}&_page=${page}`,
+      `${this.link}?_limit=${limit}&_page=${pageNumber}`,
       {
         Authorization: `Bearer ${token}`,
       }

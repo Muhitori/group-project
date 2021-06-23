@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
 import {
-  pageSelector,
+  pageNumberSelector,
   isNextPageSelector,
   isLoadPageSelector,
 } from '../../store/selectors/product-selector';
@@ -12,12 +12,12 @@ import { useStyle } from './Styles';
 export const Pagination = () => {
   const classes = useStyle();
   const token = useSelector(tokenSelector);
-  const page = useSelector(pageSelector);
+  const pageNumber = useSelector(pageNumberSelector);
   const isLoad = useSelector(isLoadPageSelector);
   const isNextPage = useSelector(isNextPageSelector);
   const dispatch = useDispatch();
   const onLoadMore = () => {
-    dispatch(getProductsAsync({ page, token }));
+    dispatch(getProductsAsync({ pageNumber, token }));
   };
   return (
     <div className={classes.paginationContainer}>

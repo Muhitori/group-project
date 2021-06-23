@@ -5,13 +5,13 @@ const initialState = {
   list: [],
   currentProduct: {},
   category: '',
-  page: 1,
+  pageNumber: 1,
   pageCount: 1,
   loadPage: false
 };
 
-export const getAllProducts = createAsyncThunk(
-  'allProducts/fetch',
+export const getPageCount = createAsyncThunk(
+  'pageCount/fetch',
   async (token) => {
     const response = await ProductService.getProductPageCount({ token });
     return response;
@@ -20,8 +20,8 @@ export const getAllProducts = createAsyncThunk(
 
 export const getProductsAsync = createAsyncThunk(
   'products/fetch',
-  async ({ page, token }) => {
-    const response = await ProductService.getProducts({ token, page });
+  async ({ pageNumber, token }) => {
+    const response = await ProductService.getProducts({ token, pageNumber });
     return response;
   }
 );
@@ -40,12 +40,12 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state, action) => {
+      .addCase(getPageCount.fulfilled, (state, action) => {
         state.pageCount = action.payload;
       })
       .addCase(getProductsAsync.fulfilled, (state, action) => {
         state.list = [...state.list, ...action.payload];
-        state.page += 1;
+        state.pageNumber += 1;
         state.loadPage = false;
       })
       .addCase(getProductsAsync.pending, (state) => {
