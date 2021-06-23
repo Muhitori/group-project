@@ -1,21 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { nextPageSelector } from '../../store/selectors/product-selector';
+import { pageSelector, isNextPageSelector } from '../../store/selectors/product-selector';
 import { tokenSelector } from '../../store/selectors/auth-selector';
-import { getProductsAsync } from '../../store/slices/product-slice';
+import { getProductsAsync, increasePage } from '../../store/slices/product-slice';
 import { useStyle } from './Styles';
 
 export const Pagination = () => {
   const classes = useStyle();
   const token = useSelector(tokenSelector);
-  const nextPage = useSelector(nextPageSelector);
+  const page = useSelector(pageSelector);
+  const isNextPage = useSelector(isNextPageSelector);
   const dispatch = useDispatch();
-  const onLoadMore = async () => {
-    await dispatch(getProductsAsync({ link: nextPage, token }));
+  const onLoadMore = () => {
+    dispatch(increasePage());
+    dispatch(getProductsAsync({ page, token }));
   };
   return (
     <div className={classes.paginationContainer}>
-      {!!nextPage && <Button variant="contained" onClick={onLoadMore}>Load more</Button>}
+      {isNextPage && <Button variant="contained" onClick={onLoadMore}>Load more</Button>}
     </div>
   );
 };
