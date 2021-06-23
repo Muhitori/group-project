@@ -27,22 +27,16 @@ export const getProductsAsync = createAsyncThunk(
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {
-    increasePage: (state) => {
-      state.page += 1;
-      return state;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       state.pageCount = action.payload;
     });
     builder.addCase(getProductsAsync.fulfilled, (state, action) => {
       state.list = [...state.list, ...action.payload];
+      state.page += 1;
     });
   },
 });
-
-export const { increasePage } = productSlice.actions;
 
 export const productReducer = productSlice.reducer;

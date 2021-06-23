@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { pageSelector, isNextPageSelector } from '../../store/selectors/product-selector';
 import { tokenSelector } from '../../store/selectors/auth-selector';
-import { getProductsAsync, increasePage } from '../../store/slices/product-slice';
+import { getProductsAsync } from '../../store/slices/product-slice';
 import { useStyle } from './Styles';
 
 export const Pagination = () => {
@@ -12,7 +12,6 @@ export const Pagination = () => {
   const isNextPage = useSelector(isNextPageSelector);
   const dispatch = useDispatch();
   const onLoadMore = () => {
-    dispatch(increasePage());
     dispatch(getProductsAsync({ page, token }));
   };
   return (
