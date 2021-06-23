@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useCardStyles } from './styles';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
