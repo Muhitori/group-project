@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
-import { useCardStyles } from './styles';
+import { useCardStyles } from './Styles';
 
 const BookCard = ({ id, title, img, description }) => {
   const classes = useCardStyles();
@@ -67,7 +67,7 @@ BookCard.propTypes = {
 BookCard.defaultProps = {
   id: 0,
   title: '',
-  img: '',
+  img: 'https://lh3.googleusercontent.com/proxy/XgsMFIqpIMxdeD_RgJsJL_lkzixtkvXdpBfLKmyvbPjS6p7qqQPomn9mIjo9iVM1BgPvBB4GJWTfqRr41j30U2hM6IuLrriOIwPHRW67r9Id8nhj81HC69OPdzxzofaP4EbDy5z69_2jsvMhXFb_dS6WvgjuITI7',
   description: '',
 };
 

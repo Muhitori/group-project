@@ -15,4 +15,14 @@ export class ProductService {
     });
     return data;
   }
+
+  static async getProductsByTitle({ token, searchQuery }) {
+    const data = await HTTPService.get(
+      `${API_URL}/products?title_like=${searchQuery}`,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    return data;
+  }
 }
