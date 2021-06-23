@@ -80,7 +80,6 @@ export class CartService {
   }
 
   static async getCartProductsIds() {
-    console.log(this.cartProductsIds);
     return this.cartProductsIds;
   }
 }
