@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import {
   pageNumberSelector,
   isNextPageSelector,
-  isLoadPageSelector,
+  isPageLoadingSelector,
 } from '../../store/selectors/product-selector';
 import { tokenSelector } from '../../store/selectors/auth-selector';
 import { getProductsAsync } from '../../store/slices/product-slice';
@@ -13,7 +13,7 @@ export const Pagination = () => {
   const classes = useStyle();
   const token = useSelector(tokenSelector);
   const pageNumber = useSelector(pageNumberSelector);
-  const isLoad = useSelector(isLoadPageSelector);
+  const isLoading = useSelector(isPageLoadingSelector);
   const isNextPage = useSelector(isNextPageSelector);
   const dispatch = useDispatch();
   const onLoadMore = () => {
@@ -22,7 +22,7 @@ export const Pagination = () => {
   return (
     <div className={classes.paginationContainer}>
       {isNextPage && (
-        <Button variant="contained" disabled={isLoad} onClick={onLoadMore}>
+        <Button variant="contained" disabled={isLoading} onClick={onLoadMore}>
           Load more
         </Button>
       )}

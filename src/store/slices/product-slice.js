@@ -7,7 +7,7 @@ const initialState = {
   category: '',
   pageNumber: 1,
   pageCount: 1,
-  loadPage: false
+  isPageLoading: false
 };
 
 export const getPageCount = createAsyncThunk(
@@ -46,13 +46,13 @@ export const productSlice = createSlice({
       .addCase(getProductsAsync.fulfilled, (state, action) => {
         state.list = [...state.list, ...action.payload];
         state.pageNumber += 1;
-        state.loadPage = false;
+        state.isPageLoading = false;
       })
       .addCase(getProductsAsync.pending, (state) => {
-        state.loadPage = true;
+        state.isPageLoading = true;
       })
       .addCase(getProductsAsync.rejected, (state) => {
-        state.loadPage = false;
+        state.isPageLoading = false;
       })
       .addCase(getProductByIdAsync.fulfilled, (state, action) => {
         state.currentProduct = action.payload;
