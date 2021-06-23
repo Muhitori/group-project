@@ -13,7 +13,7 @@ export class CartService {
     });
 
     this.cartId = data[0].id;
-    this.cartProducts = data[0].products;
+    this.cartProductsIds = data[0].products;
 
     return data[0];
   }
@@ -29,7 +29,7 @@ export class CartService {
       }
     );
 
-    this.cartProducts = newCart.products;
+    this.cartProductsIds = newCart.products;
 
     return newCart.products;
   }
@@ -80,6 +80,7 @@ export class CartService {
   }
 
   static async getCartProductsIds() {
+    console.log(this.cartProductsIds);
     return this.cartProductsIds;
   }
 }

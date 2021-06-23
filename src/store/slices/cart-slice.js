@@ -1,14 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CartService } from '../../services/CartService';
+import {
+  currentUserIdSelector,
+  tokenSelector,
+} from '../selectors/auth-selector';
 
 const initialState = {
   products: [],
-  productIds: [],
+  productsIds: [],
 };
 
 export const getUserCartAsync = createAsyncThunk(
   'getUserCart/fetch',
-  async ({ token, userId }) => {
+  async (_, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
     const data = await CartService.getUserCart({
       token,
       userId,
@@ -18,24 +25,29 @@ export const getUserCartAsync = createAsyncThunk(
 );
 
 export const getCartProductsAsync = createAsyncThunk(
-  'cartProductsByUserId/fetch',
-  async ({ token }) => {
+  'getCartProducts/fetch',
+  async (_, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await CartService.getCartProducts({ token });
     return data;
   }
 );
 
 export const getCartProductsIdsAsync = createAsyncThunk(
-  'cartProductsIds/fetch',
+  'getCartProductsIds/fetch',
   async () => {
-    const { products } = await CartService.getCartProductsIds();
+    const products = await CartService.getCartProductsIds();
     return products;
   }
 );
 
 export const addToCartAsync = createAsyncThunk(
   'addToCart/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
     const data = await CartService.addToCart({ userId, productId, token });
     return data;
   }
@@ -43,7 +55,10 @@ export const addToCartAsync = createAsyncThunk(
 
 export const removeFromCartAsync = createAsyncThunk(
   'removeFromCart/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
     const data = await CartService.removeFromCart({ userId, productId, token });
     return data;
   }
@@ -51,7 +66,10 @@ export const removeFromCartAsync = createAsyncThunk(
 
 export const toggleCartProductAsync = createAsyncThunk(
   'toggleCartProduct/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
     const data = await CartService.toggleCartProduct({
       userId,
       productId,
@@ -72,11 +90,11 @@ export const cartSlice = createSlice({
         return state;
       })
       .addCase(getCartProductsIdsAsync.fulfilled, (state, action) => {
-        state.productIds = action.payload;
+        state.productsIds = action.payload;
         return state;
       })
       .addCase(toggleCartProductAsync.fulfilled, (state, action) => {
-        state.productIds = action.payload;
+        state.productsIds = action.payload;
         return state;
       });
   },

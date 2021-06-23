@@ -1,14 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { FavoritesService } from '../../services/FavoritesService';
+import {
+  currentUserIdSelector,
+  tokenSelector,
+} from '../selectors/auth-selector';
 
 const initialState = {
   products: [],
-  productIds: [],
+  productsIds: [],
 };
 
 export const getUserFavoritesAsync = createAsyncThunk(
   'getUserCart/fetch',
-  async ({ token, userId }) => {
+  async (_, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
     const data = await FavoritesService.getUserFavorites({
       token,
       userId,
@@ -18,15 +25,17 @@ export const getUserFavoritesAsync = createAsyncThunk(
 );
 
 export const getFavoriteProductsAsync = createAsyncThunk(
-  'favoritesByUserId/fetch',
-  async ({ token }) => {
+  'getFavoriteProducts/fetch',
+  async (_, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await FavoritesService.getFavoriteProducts({ token });
     return data;
   }
 );
 
 export const getFavoriteProductsIdsAsync = createAsyncThunk(
-  'favoritesIdsByUserId/fetch',
+  'getFavoriteProductsIds/fetch',
   async () => {
     const products = await FavoritesService.getFavoriteProductsIds();
     return products;
@@ -35,7 +44,9 @@ export const getFavoriteProductsIdsAsync = createAsyncThunk(
 
 export const addToFavoritesAsync = createAsyncThunk(
   'addToFavorites/fetch',
-  async ({ productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await FavoritesService.addToFavorites({
       productId,
       token,
@@ -46,7 +57,9 @@ export const addToFavoritesAsync = createAsyncThunk(
 
 export const removeFromFavoritesAsync = createAsyncThunk(
   'removeFromFavorites/fetch',
-  async ({ productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await FavoritesService.removeFromFavorites({
       productId,
       token,
@@ -57,7 +70,9 @@ export const removeFromFavoritesAsync = createAsyncThunk(
 
 export const toggleFavoriteProductAsync = createAsyncThunk(
   'toggleFavoriteProduct/fetch',
-  async ({ productId, token }) => {
+  async ({ productId }, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await FavoritesService.toggleFavoriteProduct({
       productId,
       token,

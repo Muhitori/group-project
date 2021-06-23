@@ -6,7 +6,6 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCardStyles } from './styles';
-import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
 
@@ -14,16 +13,15 @@ const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const classes = useCardStyles();
 
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
 
   const onStarClick = (e) => {
     e.preventDefault();
-    dispatch(toggleFavoriteProductAsync({ productId: id, token }));
+    dispatch(toggleFavoriteProductAsync({ productId: id }));
   };
 
   const onAddShoppingClick = (e) => {
     e.preventDefault();
-    dispatch(toggleCartProductAsync({ productId: id, token }));
+    dispatch(toggleCartProductAsync({ productId: id }));
   };
 
   const onDeleteClick = (e) => {

@@ -4,16 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BookCard } from './BookCard';
 import { getProductsAsync } from '../../../store/slices/product-slice';
 import { productListSelector } from '../../../store/selectors/product-selector';
-import {
-  currentUserIdSelector,
-  tokenSelector,
-} from '../../../store/selectors/auth-selector';
 import { Spinner } from '../loader/loader';
 import {
   getCartProductsIdsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
-import { cartProductIdsSelector } from '../../../store/selectors/cart-selector';
+import { cartProductsIdsSelector } from '../../../store/selectors/cart-selector';
 import { favoritesProductsIdsSelector } from '../../../store/selectors/favorites-selector';
 import {
   getFavoriteProductsIdsAsync,
@@ -24,20 +20,18 @@ export const BooksList = () => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
-  const userId = useSelector(currentUserIdSelector);
 
   const products = useSelector(productListSelector);
-  const cartProductIds = useSelector(cartProductIdsSelector);
+  const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
   useEffect(async () => {
-    await dispatch(getProductsAsync({ token }));
+    await dispatch(getProductsAsync());
 
-    await dispatch(getUserCartAsync({ userId, token }));
+    await dispatch(getUserCartAsync());
     await dispatch(getCartProductsIdsAsync());
 
-    await dispatch(getUserFavoritesAsync({ userId, token }));
+    await dispatch(getUserFavoritesAsync());
     await dispatch(getFavoriteProductsIdsAsync());
     setLoading(false);
   }, []);

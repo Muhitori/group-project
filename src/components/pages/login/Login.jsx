@@ -33,7 +33,7 @@ export const Login = () => {
     if (!emailErrorMsg && !passwordErrorMsg) {
       const action = await dispatch(loginAsync({ email, password }));
       if (action.meta.requestStatus === 'fulfilled') {
-        await dispatch(getUserAsync(action.payload.token));
+        dispatch(getUserAsync(action.payload.token));
       }
     }
   };
