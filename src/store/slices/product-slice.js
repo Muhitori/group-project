@@ -4,28 +4,45 @@ import { ProductService } from '../../services/ProductService';
 const initialState = {
   list: [],
   category: '',
-  nextPage: '',
+  page: 1,
+  pageCount: 1,
 };
 
+export const getAllProducts = createAsyncThunk(
+  'allProducts/fetch',
+  async (token) => {
+    const response = await ProductService.getProductPageCount({ token });
+    return response;
+  }
+);
+
 export const getProductsAsync = createAsyncThunk(
-  'product/fetch',
-  async ({ link, token }) => {
-    const response = await ProductService.getProducts({ link, token });
-    return { ...response };
+  'products/fetch',
+  async ({ page, token }) => {
+    const response = await ProductService.getProducts({ token, page });
+    return response;
   }
 );
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    increasePage: (state) => {
+      state.page += 1;
+      return state;
+    }
+  },
   extraReducers: (builder) => {
+    builder.addCase(getAllProducts.fulfilled, (state, action) => {
+      state.pageCount = action.payload;
+    });
     builder.addCase(getProductsAsync.fulfilled, (state, action) => {
-      const { data, next } = action.payload;
-      state.list = [...state.list, ...data];
-      state.nextPage = next;
+      state.list = [...state.list, ...action.payload];
     });
   },
 });
+
+export const { increasePage } = productSlice.actions;
 
 export const productReducer = productSlice.reducer;
