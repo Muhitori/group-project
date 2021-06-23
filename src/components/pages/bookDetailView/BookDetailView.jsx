@@ -7,7 +7,6 @@ import StarIcon from '@material-ui/icons/Star';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { currentProductSelector } from '../../../store/selectors/product-selector';
-import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { getProductByIdAsync } from '../../../store/slices/product-slice';
 import { useCardStyles } from './styles';
 
@@ -19,10 +18,9 @@ export const BookDetailView = () => {
 
   const dispatch = useDispatch();
   const product = useSelector(currentProductSelector);
-  const token = useSelector(tokenSelector);
 
   useEffect(() => {
-    dispatch(getProductByIdAsync({ id, token }));
+    dispatch(getProductByIdAsync({ id }));
   }, []);
 
   const onStarClick = (e) => {

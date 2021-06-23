@@ -25,6 +25,11 @@ export class HTTPService {
     return data;
   }
 
+  static async patch(url, body, options) {
+    const data = await this.request(url, 'PATCH', options, body);
+    return data;
+  }
+
   static async parseResponse(response) {
     if (response.ok) {
       const data = await response.json();

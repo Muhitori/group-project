@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ProductService } from '../../services/ProductService';
+import { tokenSelector } from '../selectors/auth-selector';
 
 const initialState = {
   list: [],
@@ -7,12 +8,14 @@ const initialState = {
   category: '',
   pageNumber: 1,
   pageCount: 1,
-  isPageLoading: false
+  isPageLoading: false,
 };
 
 export const getPageCount = createAsyncThunk(
   'pageCount/fetch',
-  async (token) => {
+  async (_, store) => {
+    const token = tokenSelector(store.getState());
+
     const response = await ProductService.getProductPageCount({ token });
     return response;
   }
@@ -20,7 +23,9 @@ export const getPageCount = createAsyncThunk(
 
 export const getProductsAsync = createAsyncThunk(
   'products/fetch',
-  async ({ pageNumber, token }) => {
+  async ({ pageNumber }, store) => {
+    const token = tokenSelector(store.getState());
+
     const response = await ProductService.getProducts({ token, pageNumber });
     return response;
   }
@@ -28,7 +33,9 @@ export const getProductsAsync = createAsyncThunk(
 
 export const getProductByIdAsync = createAsyncThunk(
   'productById/fetch',
-  async ({ id, token }) => {
+  async ({ id }, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await ProductService.getProductById({ id, token });
     return data;
   }

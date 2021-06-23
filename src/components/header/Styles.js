@@ -17,6 +17,18 @@ export const useStyle = makeStyles((theme) => ({
     overflowX: 'auto',
   },
   toolbarButton: {
+    position: 'relative',
     marginLeft: theme.spacing(2),
+  },
+  cartCounter: {
+    position: 'absolute',
+    top: '-7px',
+    right: '-7px',
+    minWidth: '15px',
+    minHeight: '15px',
+    padding: '3px',
+    backgroundColor: 'red',
+    borderRadius: '50%',
+    fontSize: '10px',
   },
 }));

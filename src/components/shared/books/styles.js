@@ -34,4 +34,10 @@ export const useCardStyles = makeStyles(() => ({
   star: {
     marginRight: 15,
   },
+  isFavorite: {
+    backgroundColor: 'yellow',
+  },
+  inCart: {
+    backgroundColor: 'green',
+  },
 }));
