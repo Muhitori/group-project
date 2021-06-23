@@ -6,10 +6,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCardStyles } from './styles';
-import {
-  currentUserIdSelector,
-  tokenSelector,
-} from '../../../store/selectors/auth-selector';
+import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
 
@@ -18,16 +15,15 @@ const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
 
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
-  const userId = useSelector(currentUserIdSelector);
 
   const onStarClick = (e) => {
     e.preventDefault();
-    dispatch(toggleFavoriteProductAsync({ userId, productId: id, token }));
+    dispatch(toggleFavoriteProductAsync({ productId: id, token }));
   };
 
   const onAddShoppingClick = (e) => {
     e.preventDefault();
-    dispatch(toggleCartProductAsync({ userId, productId: id, token }));
+    dispatch(toggleCartProductAsync({ productId: id, token }));
   };
 
   const onDeleteClick = (e) => {
@@ -49,9 +45,9 @@ const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
               <button
                 type="submit"
                 onClick={onStarClick}
-                className={
-                  (classes.star, isFavorite ? classes.isFavorite : null)
-                }
+                className={`${classes.star} ${
+                  isFavorite ? classes.isFavorite : null
+                }`}
               >
                 <StarBorderIcon />
               </button>

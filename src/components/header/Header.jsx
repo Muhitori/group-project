@@ -6,7 +6,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import { clearAuthState } from '../../store/slices/auth-slice';
 import { tokenSelector } from '../../store/selectors/auth-selector';
 import { useStyle } from './Styles';
-import { cartProductsIdsSelector } from '../../store/selectors/cart-selector';
+import { cartProductIdsSelector } from '../../store/selectors/cart-selector';
 import { CartCounter } from '../common/cart-counter/CartCounter';
 
 export const Header = () => {
@@ -14,7 +14,8 @@ export const Header = () => {
   const classes = useStyle();
 
   const isLogin = useSelector(tokenSelector);
-  const cartLength = useSelector(cartProductsIdsSelector).length;
+  const cartProducts = useSelector(cartProductIdsSelector);
+  const cartLength = cartProducts ? cartProducts.length : 0;
 
   const logout = () => dispatch(clearAuthState());
 

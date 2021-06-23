@@ -3,105 +3,83 @@ import { API_URL } from '../utils/constants';
 import { ProductService } from './ProductService';
 
 export class CartService {
+  static cartId = null;
+
+  static cartProductsIds = [];
+
   static async getUserCart({ userId, token }) {
     const data = await HTTPService.get(`${API_URL}/carts?_userId=${userId}`, {
       Authorization: `Bearer ${token}`,
     });
 
+    this.cartId = data[0].id;
+    this.cartProducts = data[0].products;
+
     return data[0];
   }
 
-  static async updateCartProducts({ newProducts, id, token }) {
+  static async updateCartProducts({ token }) {
     const newCart = await HTTPService.patch(
-      `${API_URL}/carts/${id}`,
+      `${API_URL}/carts/${this.cartId}`,
       {
-        products: newProducts,
+        products: this.cartProductsIds,
       },
       {
         Authorization: `Bearer ${token}`,
       }
     );
+
+    this.cartProducts = newCart.products;
+
     return newCart.products;
   }
 
-  static async addToCart({ userId, productId, token }) {
-    const { products, id } = await this.getUserCart({
-      userId,
-      token,
-    });
-
-    let newProducts = products;
-    if (!products.includes(productId)) {
-      newProducts = [...products, productId];
+  static async addToCart({ productId, token }) {
+    if (!this.cartProductsIds.includes(productId)) {
+      this.cartProductsIds = [...this.cartProductsIds, productId];
     }
 
-    const updatedProducts = await this.updateCartProducts({
-      newProducts,
-      id,
-      token,
-    });
+    const updatedProducts = await this.updateCartProducts({ token });
 
     return updatedProducts;
   }
 
-  static async removeFromCart({ userId, productId, token }) {
-    const { products, id } = await this.getUserCart({
-      userId,
-      token,
-    });
-
-    let newProducts = products;
-    if (products.includes(productId)) {
-      newProducts = products.filter(
+  static async removeFromCart({ productId, token }) {
+    if (this.cartProductsIds.includes(productId)) {
+      this.cartProductsIds = this.cartProductsIds.filter(
         (cartProductId) => cartProductId !== productId
       );
     }
-
-    const updatedProducts = await this.updateCartProducts({
-      newProducts,
-      id,
-      token,
-    });
+    const updatedProducts = await this.updateCartProducts({ token });
 
     return updatedProducts;
   }
 
-  static async toggleCartProduct({ userId, productId, token }) {
-    const { products, id } = await this.getUserCart({
-      userId,
-      token,
-    });
-
-    let newProducts = products;
-    if (products.includes(productId)) {
-      newProducts = products.filter(
+  static async toggleCartProduct({ productId, token }) {
+    if (this.cartProductsIds.includes(productId)) {
+      this.cartProductsIds = this.cartProductsIds.filter(
         (cartProductId) => cartProductId !== productId
       );
     } else {
-      newProducts = [...products, productId];
+      this.cartProductsIds = [...this.cartProductsIds, productId];
     }
 
-    const updatedProducts = await this.updateCartProducts({
-      newProducts,
-      id,
-      token,
-    });
+    const updatedProducts = await this.updateCartProducts({ token });
 
     return updatedProducts;
   }
 
-  static async getCartProductsByUserId({ userId, token }) {
-    const { products } = await this.getUserCart({
-      userId,
-      token,
-    });
-
+  static async getCartProducts({ token }) {
     const cartProducts = Promise.all(
-      products.map((productId) =>
+      this.cartProductsIds.map((productId) =>
         ProductService.getProductById({ id: productId, token })
       )
     );
 
     return cartProducts;
+  }
+
+  static async getCartProductsIds() {
+    return this.cartProductsIds;
   }
 }

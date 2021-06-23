@@ -6,11 +6,10 @@ const initialState = {
   productIds: [],
 };
 
-export const getFavoriteProductsAsync = createAsyncThunk(
-  'favoritesByUserId/fetch',
+export const getUserFavoritesAsync = createAsyncThunk(
+  'getUserCart/fetch',
   async ({ token, userId }) => {
-    const data = await FavoritesService.getFavoriteProductsByUserId({
-      limit: 24,
+    const data = await FavoritesService.getUserFavorites({
       token,
       userId,
     });
@@ -18,23 +17,26 @@ export const getFavoriteProductsAsync = createAsyncThunk(
   }
 );
 
+export const getFavoriteProductsAsync = createAsyncThunk(
+  'favoritesByUserId/fetch',
+  async ({ token }) => {
+    const data = await FavoritesService.getFavoriteProducts({ token });
+    return data;
+  }
+);
+
 export const getFavoriteProductsIdsAsync = createAsyncThunk(
   'favoritesIdsByUserId/fetch',
-  async ({ token, userId }) => {
-    const { products } = await FavoritesService.getUserFavorites({
-      limit: 24,
-      token,
-      userId,
-    });
+  async () => {
+    const products = await FavoritesService.getFavoriteProductsIds();
     return products;
   }
 );
 
 export const addToFavoritesAsync = createAsyncThunk(
   'addToFavorites/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId, token }) => {
     const data = await FavoritesService.addToFavorites({
-      userId,
       productId,
       token,
     });
@@ -44,9 +46,8 @@ export const addToFavoritesAsync = createAsyncThunk(
 
 export const removeFromFavoritesAsync = createAsyncThunk(
   'removeFromFavorites/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId, token }) => {
     const data = await FavoritesService.removeFromFavorites({
-      userId,
       productId,
       token,
     });
@@ -56,9 +57,8 @@ export const removeFromFavoritesAsync = createAsyncThunk(
 
 export const toggleFavoriteProductAsync = createAsyncThunk(
   'toggleFavoriteProduct/fetch',
-  async ({ userId, productId, token }) => {
+  async ({ productId, token }) => {
     const data = await FavoritesService.toggleFavoriteProduct({
-      userId,
       productId,
       token,
     });

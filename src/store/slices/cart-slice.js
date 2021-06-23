@@ -6,10 +6,10 @@ const initialState = {
   productIds: [],
 };
 
-export const getCartProductsAsync = createAsyncThunk(
-  'cartProductsByUserId/fetch',
+export const getUserCartAsync = createAsyncThunk(
+  'getUserCart/fetch',
   async ({ token, userId }) => {
-    const data = await CartService.getCartProductsByUserId({
+    const data = await CartService.getUserCart({
       token,
       userId,
     });
@@ -17,13 +17,18 @@ export const getCartProductsAsync = createAsyncThunk(
   }
 );
 
+export const getCartProductsAsync = createAsyncThunk(
+  'cartProductsByUserId/fetch',
+  async ({ token }) => {
+    const data = await CartService.getCartProducts({ token });
+    return data;
+  }
+);
+
 export const getCartProductsIdsAsync = createAsyncThunk(
   'cartProductsIds/fetch',
-  async ({ token, userId }) => {
-    const { products } = await CartService.getUserCart({
-      token,
-      userId,
-    });
+  async () => {
+    const { products } = await CartService.getCartProductsIds();
     return products;
   }
 );
@@ -67,11 +72,11 @@ export const cartSlice = createSlice({
         return state;
       })
       .addCase(getCartProductsIdsAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+        state.productIds = action.payload;
         return state;
       })
       .addCase(toggleCartProductAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+        state.productIds = action.payload;
         return state;
       });
   },
