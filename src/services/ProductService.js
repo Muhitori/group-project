@@ -10,7 +10,7 @@ export class ProductService {
     const data = await HTTPService.get(this.link, {
       Authorization: `Bearer ${token}`,
     });
-    const pageCount = data.length / limit;
+    const pageCount = Math.ceil(data.length / limit);
     return pageCount;
   }
 
