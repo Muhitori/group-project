@@ -8,7 +8,7 @@ import { BooksControls } from '../../common/booksControls/BooksControls';
 
 export const Books = () => {
   const dispatch = useDispatch();
-  const [isOnlyFavoriteProducts, setOnlyFavoriteProducts] = useState(true);
+  const [isOnlyFavoriteProducts, setOnlyFavoriteProducts] = useState(false);
 
   useEffect(() => {
     dispatch(getPageCount());

@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import { PropTypes } from 'prop-types';
+import { SearchBar } from '../searchBar/Searchbar';
 import { useStyle } from './Styles';
 
 export const BooksControls = ({
@@ -22,6 +23,7 @@ export const BooksControls = ({
       >
         Show only favorites
       </Button>
+      {isOnlyFavoriteProducts ? null : <SearchBar />}
     </div>
   );
 };
