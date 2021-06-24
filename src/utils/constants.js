@@ -2,6 +2,7 @@ export const API_URL = process.env.REACT_APP_API_URL;
 
 export const MAIN_COLOR = '#fff';
 export const LIGHT_COLOR = '#e0e0e0';
+export const LIGHT_COLOR_SHADOW = '#eaeaeaa1';
 export const sliderArrowColor = '#d9d9d9';
 
 export const slidesContent = [

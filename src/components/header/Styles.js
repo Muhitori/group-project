@@ -1,20 +1,33 @@
 import { makeStyles } from '@material-ui/core';
-import { LIGHT_COLOR } from '../../utils/constants';
+import {
+  LIGHT_COLOR,
+  LIGHT_COLOR_SHADOW,
+  MAIN_COLOR,
+} from '../../utils/constants';
 
 export const useStyle = makeStyles((theme) => ({
+  header: {
+    position: 'fixed',
+    backgroundColor: MAIN_COLOR,
+    width: '100%',
+    zIndex: '99999',
+    borderBottom: `1px solid ${LIGHT_COLOR}`,
+    boxShadow: `3px 3px 2px 1px ${LIGHT_COLOR_SHADOW}`,
+  },
   container: {
     maxWidth: '100%',
     padding: theme.spacing(0, 2),
   },
   toolbar: {
-    borderBottom: `1px solid ${LIGHT_COLOR}`,
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  toolbarLeft: {
+    display: 'flex',
+    alignItems: 'center',
   },
   toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
+    padding: theme.spacing(0, 1),
   },
   toolbarButton: {
     position: 'relative',

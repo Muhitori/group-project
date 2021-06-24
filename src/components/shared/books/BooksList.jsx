@@ -26,7 +26,7 @@ export const BooksList = () => {
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
   useEffect(async () => {
-    await dispatch(getProductsAsync());
+    await dispatch(getProductsAsync({ pageNumber: 1 }));
 
     await dispatch(getUserCartAsync());
     await dispatch(getCartProductsIdsAsync());
