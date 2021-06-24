@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useCardStyles } from './Styles';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
-import { imgPaleceHolder } from '../../../utils/constants';
+import { IMG_PLCEHOLDER } from '../../../utils/constants';
 
 const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const classes = useCardStyles();
@@ -83,7 +83,7 @@ BookCard.propTypes = {
 BookCard.defaultProps = {
   id: 0,
   title: '',
-  img: imgPaleceHolder,
+  img: IMG_PLCEHOLDER,
   description: '',
   inCart: false,
   isFavorite: false,
