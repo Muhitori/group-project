@@ -43,23 +43,26 @@ export const BooksList = () => {
     setisLoading(false);
   }, []);
 
-  const getProductCards = () => {
+  const searchQueryResult = searchResult.map((product) => (
+    <BookCard key={product.id} {...product} />
+  ));
+  const allProducts = products.map((product) => (
+    <BookCard
+      key={product.id}
+      {...product}
+      inCart={cartProductIds?.includes(product.id)}
+      isFavorite={favoriteProductsIds?.includes(product.id)}
+    />
+  ));
+
+  const renderProductCards = () => {
     if (searchQuery) {
       if (!searchResult.length) {
         return <NotFound />;
       }
-      return searchResult.map((product) => (
-        <BookCard key={product.id} {...product} />
-      ));
+      return searchQueryResult;
     }
-    return products.map((product) => (
-      <BookCard
-        key={product.id}
-        {...product}
-        inCart={cartProductIds?.includes(product.id)}
-        isFavorite={favoriteProductsIds?.includes(product.id)}
-      />
-    ));
+    return allProducts;
   };
 
   return (
@@ -69,7 +72,7 @@ export const BooksList = () => {
       justifyContent="center"
       marginTop="20px"
     >
-      {isLoading ? <Spinner /> : getProductCards()}
+      {isLoading ? <Spinner /> : renderProductCards()}
     </Box>
   );
 };
