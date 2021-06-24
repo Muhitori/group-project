@@ -7,7 +7,7 @@ export class CartService {
 
   static cartProductsCounts = {};
 
-  static cartProducts = {};
+  static cartProducts = [];
 
   static async getUserCart({ userId, token }) {
     const data = await HTTPService.get(`${API_URL}/carts?_userId=${userId}`, {
@@ -57,7 +57,7 @@ export class CartService {
 
   static async removeFromCart({ productId, token }) {
     const id = productId.toString();
-    if (Object.prototype.hasOwnProperty.call(this.cartProductsCounts, id)) {
+    if (this.cartProductsCounts.hasOwnProperty(id)) {
       const { [id]: remove, ...rest } = this.cartProductsCounts;
       this.cartProductsCounts = rest;
     }
@@ -68,7 +68,7 @@ export class CartService {
 
   static async toggleCartProduct({ productId, token }) {
     const id = productId.toString();
-    if (Object.prototype.hasOwnProperty.call(this.cartProductsCounts, id)) {
+    if (this.cartProductsCounts.hasOwnProperty(id)) {
       const { [id]: remove, ...rest } = this.cartProductsCounts;
       this.cartProductsCounts = rest;
     } else {
@@ -87,6 +87,13 @@ export class CartService {
       })
     );
     return cartProducts;
+  }
+
+  static async clearCart({ token }) {
+    this.cartProducts = [];
+    this.cartProductsCounts = {};
+    await this.updateCartProducts({ token });
+    return this.cartProductsCounts;
   }
 
   static async getCartProductsCounts() {

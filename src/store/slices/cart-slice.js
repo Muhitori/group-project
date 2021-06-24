@@ -20,9 +20,14 @@ export const createOrderAsync = createAsyncThunk(
     const data = await OrderService.createOrder({
       token,
       userId,
-      products
+      products,
     });
-    return data;
+    if (data) {
+      await CartService.clearCart({ token });
+      return true;
+    }
+
+    return false;
   }
 );
 
@@ -135,8 +140,10 @@ export const cartSlice = createSlice({
         state.productsCounts = action.payload;
         return state;
       })
-      .addCase(createOrderAsync.fulfilled, (state) => {
-        state = initialState;
+      .addCase(createOrderAsync.fulfilled, (state, action) => {
+        if (action.payload) {
+          state = initialState;
+        }
         return state;
       });
   },
