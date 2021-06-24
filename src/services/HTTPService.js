@@ -25,9 +25,15 @@ export class HTTPService {
     return data;
   }
 
+  static async patch(url, body, options) {
+    const data = await this.request(url, 'PATCH', options, body);
+    return data;
+  }
+
   static async parseResponse(response) {
     if (response.ok) {
-      return response.json();
+      const data = await response.json();
+      return data;
     }
 
     if (response.status === 401) {

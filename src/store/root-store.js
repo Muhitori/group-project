@@ -14,10 +14,14 @@ import { loggerMiddleware } from './middlewares';
 import { uiReducer } from './slices/ui-slice';
 import { authReducer } from './slices/auth-slice';
 import { productReducer } from './slices/product-slice';
+import { cartReducer } from './slices/cart-slice';
+import { favoritesReducer } from './slices/favorites-slice';
 
 const reducers = combineReducers({
   auth: authReducer,
   product: productReducer,
+  cart: cartReducer,
+  favorites: favoritesReducer,
   ui: uiReducer,
 });
 

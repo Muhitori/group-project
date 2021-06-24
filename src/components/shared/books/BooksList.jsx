@@ -11,18 +11,38 @@ import {
 import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { Spinner } from '../loader/loader';
 import { NotFound } from '../../pages/notFound/NotFound';
+// import { productListSelector } from '../../../store/selectors/product-selector';
+// import { Spinner } from '../loader/loader';
+import {
+  getCartProductsIdsAsync,
+  getUserCartAsync,
+} from '../../../store/slices/cart-slice';
+import { cartProductsIdsSelector } from '../../../store/selectors/cart-selector';
+import { favoritesProductsIdsSelector } from '../../../store/selectors/favorites-selector';
+import {
+  getFavoriteProductsIdsAsync,
+  getUserFavoritesAsync,
+} from '../../../store/slices/favorites-slice';
 
 export const BooksList = () => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
+
   const products = useSelector(productListSelector);
   const searchResult = useSelector(productsBySearchSelector);
   const searchQuery = useSelector(productsSearchQuerySelector);
   const token = useSelector(tokenSelector);
+  const cartProductIds = useSelector(cartProductsIdsSelector);
+  const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
   useEffect(async () => {
-    await dispatch(getProductsAsync({ token }));
+    await dispatch(getProductsAsync());
+    await dispatch(getUserCartAsync());
+    await dispatch(getCartProductsIdsAsync());
+    await dispatch(getUserFavoritesAsync());
+    await dispatch(getFavoriteProductsIdsAsync());
+    await dispatch(getProductsAsync({ pageNumber: 1 }));
     setLoading(false);
   }, []);
 
@@ -36,9 +56,22 @@ export const BooksList = () => {
       ));
     }
     return products.map((product) => (
-      <BookCard key={product.id} {...product} />
+      <BookCard
+        key={product.id}
+        {...product}
+        inCart={cartProductIds?.includes(product.id)}
+        isFavorite={favoriteProductsIds?.includes(product.id)}
+      />
     ));
   };
+  // const productCards = products.map((product) => (
+  //   <BookCard
+  //     key={product.id}
+  //     {...product}
+  //     inCart={cartProductIds?.includes(product.id)}
+  //     isFavorite={favoriteProductsIds?.includes(product.id)}
+  //   />
+  // ));
 
   return (
     <Box

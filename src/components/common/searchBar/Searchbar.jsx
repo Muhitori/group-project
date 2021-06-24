@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
