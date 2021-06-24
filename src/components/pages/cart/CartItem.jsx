@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Typography,
   Button,
@@ -11,23 +12,16 @@ import {
 } from '@material-ui/core';
 import { useStyle } from './Styles';
 
-export const CartItem = () => {
+export const CartItem = ({ id, title, description, price, img }) => {
   const classes = useStyle();
   return (
     <Card className={classes.card}>
-      <CardMedia
-        className={classes.cardMedia}
-        image="https://source.unsplash.com/random"
-        title="Image title"
-      />
+      <CardMedia className={classes.cardMedia} image={img} title={title} />
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant="h5" component="h2">
-          Heading
+          {title}
         </Typography>
-        <Typography>
-          This is a media card. You can use this section to describe the
-          content.
-        </Typography>
+        <Typography>{description}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Grid container className={classes.cardActionsContent}>
@@ -36,7 +30,8 @@ export const CartItem = () => {
             align="right"
             variant="h6"
           >
-            Price: $50
+            Price:
+            {price}
           </Typography>
           <TextField
             className={classes.cardActionsField}
@@ -64,4 +59,20 @@ export const CartItem = () => {
       </CardActions>
     </Card>
   );
+};
+
+CartItem.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  price: PropTypes.number,
+  img: PropTypes.string,
+};
+
+CartItem.defaultProps = {
+  id: 0,
+  title: '',
+  description: '',
+  price: 0,
+  img: '',
 };
