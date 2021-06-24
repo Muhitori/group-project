@@ -3,7 +3,7 @@ export const API_URL = process.env.REACT_APP_API_URL;
 export const MAIN_COLOR = '#fff';
 export const LIGHT_COLOR = '#e0e0e0';
 export const SLIDER_ARROW_COLOR = '#d9d9d9';
-export const IMG_PLCEHOLDER =
+export const IMG_PLACEHOLDER =
   'https://lh3.googleusercontent.com/proxy/XgsMFIqpIMxdeD_RgJsJL_lkzixtkvXdpBfLKmyvbPjS6p7qqQPomn9mIjo9iVM1BgPvBB4GJWTfqRr41j30U2hM6IuLrriOIwPHRW67r9Id8nhj81HC69OPdzxzofaP4EbDy5z69_2jsvMhXFb_dS6WvgjuITI7';
 
 export const SLIDES_CONTENT = [

@@ -5,6 +5,7 @@ import { Carousel } from '../../common/carousel/Carousel';
 import { SearchBar } from '../../common/searchBar/Searchbar';
 import { BooksList } from '../../shared/books/BooksList';
 import { getPageCount } from '../../../store/slices/product-slice';
+import { SideBar } from '../../common/sideBar/SideBar';
 
 export const Books = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const Books = () => {
   return (
     <>
       <Carousel />
+      <SideBar />
       <SearchBar />
       <BooksList />
       <Pagination />
