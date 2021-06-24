@@ -36,22 +36,6 @@ export class CartService {
     return this.cartProductsCounts;
   }
 
-  // static async setCartProducts({ products, token }) {
-  //   const newCart = await HTTPService.patch(
-  //     `${API_URL}/carts/${this.cartId}`,
-  //     {
-  //       products,
-  //     },
-  //     {
-  //       Authorization: `Bearer ${token}`,
-  //     }
-  //   );
-  //   this.cartProducts = newCart.products;
-  //   this.cartProductsIds = newCart.products.map(({ id }) => id);
-
-  //   return newCart.products;
-  // }
-
   static async changeProductCount({ productId, count, token }) {
     const id = productId.toString();
     if (this.cartProductsCounts.hasOwnProperty(id)) {

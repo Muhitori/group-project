@@ -10,8 +10,14 @@ import {
 } from '@material-ui/core';
 import { CartItem } from './CartItem';
 import { useStyle } from './Styles';
-import { cartProductsSelector, cartProductsTotalSelector } from '../../../store/selectors/cart-selector';
-import { getCartProductsAsync, getUserCartAsync } from '../../../store/slices/cart-slice';
+import {
+  cartProductsSelector,
+  cartProductsTotalSelector,
+} from '../../../store/selectors/cart-selector';
+import {
+  getCartProductsAsync,
+  getUserCartAsync,
+} from '../../../store/slices/cart-slice';
 
 export const Cart = () => {
   const classes = useStyle();
@@ -24,12 +30,8 @@ export const Cart = () => {
     await dispatch(getCartProductsAsync());
   }, []);
 
-  return (
-    <Container>
-      <Typography align="center" variant="h6" gutterBottom>
-        Cart
-      </Typography>
-      <Divider />
+  const renderCart = (
+    <>
       <Grid className={classes.cartContent}>
         {cartProducts.map((product) => (
           <CartItem className={classes.markdown} key={nanoid()} {...product} />
@@ -52,6 +54,16 @@ export const Cart = () => {
           Checkout
         </Button>
       </Grid>
+    </>
+  );
+
+  return (
+    <Container>
+      <Typography align="center" variant="h6" gutterBottom>
+        Cart
+      </Typography>
+      <Divider />
+      {cartProducts.length ? renderCart : <Grid>Корзина пуста</Grid>}
     </Container>
   );
 };
