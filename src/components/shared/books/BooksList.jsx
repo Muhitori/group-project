@@ -22,7 +22,7 @@ import {
 } from '../../../store/slices/favorites-slice';
 
 export const BooksList = () => {
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ export const BooksList = () => {
     await dispatch(getUserFavoritesAsync());
     await dispatch(getFavoriteProductsIdsAsync());
     await dispatch(getProductsAsync({ pageNumber: 1 }));
-    setisLoading(false);
+    setIsLoading(false);
   }, []);
 
   const searchQueryResult = searchResult.map((product) => (
