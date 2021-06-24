@@ -6,7 +6,10 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useCardStyles } from './styles';
-import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
+import {
+  toggleFavoriteProductAsync,
+  getFavoriteProductsAsync,
+} from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
 
 const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
@@ -17,6 +20,7 @@ const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const onStarClick = (e) => {
     e.preventDefault();
     dispatch(toggleFavoriteProductAsync({ productId: id }));
+    dispatch(getFavoriteProductsAsync());
   };
 
   const onAddShoppingClick = (e) => {

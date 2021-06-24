@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ProductService } from '../../services/ProductService';
 import { tokenSelector } from '../selectors/auth-selector';
+import { pageNumberSelector } from '../selectors/product-selector';
 
 const initialState = {
   list: [],
@@ -25,6 +26,11 @@ export const getProductsAsync = createAsyncThunk(
   'products/fetch',
   async ({ pageNumber }, store) => {
     const token = tokenSelector(store.getState());
+    const currentPage = pageNumberSelector(store.getState());
+
+    if (pageNumber < currentPage) {
+      return null;
+    }
 
     const response = await ProductService.getProducts({ token, pageNumber });
     return response;
@@ -51,6 +57,10 @@ export const productSlice = createSlice({
         state.pageCount = action.payload;
       })
       .addCase(getProductsAsync.fulfilled, (state, action) => {
+        if (!action.payload) {
+          return;
+        }
+
         state.list = [...state.list, ...action.payload];
         state.pageNumber += 1;
         state.isPageLoading = false;
