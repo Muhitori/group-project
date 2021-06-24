@@ -45,7 +45,9 @@ export const getProductByIdAsync = createAsyncThunk(
 
 export const getProductsByTitleAsync = createAsyncThunk(
   'productByTitle/fetch',
-  async ({ token, searchQuery }) => {
+  async ({ searchQuery }, store) => {
+    const token = tokenSelector(store.getState());
+
     const data = await ProductService.getProductsByTitle({
       token,
       searchQuery,

@@ -5,14 +5,11 @@ import { BookCard } from './BookCard';
 import { getProductsAsync } from '../../../store/slices/product-slice';
 import {
   productListSelector,
-  productsBySearchSelector,
+  productsBySearchResultSelector,
   productsSearchQuerySelector,
 } from '../../../store/selectors/product-selector';
-import { tokenSelector } from '../../../store/selectors/auth-selector';
 import { Spinner } from '../loader/loader';
 import { NotFound } from '../../pages/notFound/NotFound';
-// import { productListSelector } from '../../../store/selectors/product-selector';
-// import { Spinner } from '../loader/loader';
 import {
   getCartProductsIdsAsync,
   getUserCartAsync,
@@ -25,14 +22,13 @@ import {
 } from '../../../store/slices/favorites-slice';
 
 export const BooksList = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   const products = useSelector(productListSelector);
-  const searchResult = useSelector(productsBySearchSelector);
+  const searchResult = useSelector(productsBySearchResultSelector);
   const searchQuery = useSelector(productsSearchQuerySelector);
-  const token = useSelector(tokenSelector);
   const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
@@ -43,7 +39,7 @@ export const BooksList = () => {
     await dispatch(getUserFavoritesAsync());
     await dispatch(getFavoriteProductsIdsAsync());
     await dispatch(getProductsAsync({ pageNumber: 1 }));
-    setLoading(false);
+    setisLoading(false);
   }, []);
 
   const getProductCards = () => {
@@ -64,14 +60,6 @@ export const BooksList = () => {
       />
     ));
   };
-  // const productCards = products.map((product) => (
-  //   <BookCard
-  //     key={product.id}
-  //     {...product}
-  //     inCart={cartProductIds?.includes(product.id)}
-  //     isFavorite={favoriteProductsIds?.includes(product.id)}
-  //   />
-  // ));
 
   return (
     <Box
@@ -80,7 +68,7 @@ export const BooksList = () => {
       justifyContent="center"
       marginTop="20px"
     >
-      {loading ? <Spinner /> : getProductCards()}
+      {isLoading ? <Spinner /> : getProductCards()}
     </Box>
   );
 };

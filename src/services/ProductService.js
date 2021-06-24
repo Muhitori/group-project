@@ -33,7 +33,8 @@ export class ProductService {
 
   static async getProductsByTitle({ token, searchQuery }) {
     const data = await HTTPService.get(
-      `${API_URL}/products?_limit=24&_page=1&title_like=${searchQuery}`,
+      `${API_URL}/products?_limit=${limit}&_page=1&title_like=${searchQuery}`,
+
       {
         Authorization: `Bearer ${token}`,
       }

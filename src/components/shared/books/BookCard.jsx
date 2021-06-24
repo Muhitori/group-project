@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useCardStyles } from './Styles';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
+import { imgPaleceHolder } from '../../../utils/constants';
 
 const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const classes = useCardStyles();
@@ -82,7 +83,7 @@ BookCard.propTypes = {
 BookCard.defaultProps = {
   id: 0,
   title: '',
-  img: 'https://lh3.googleusercontent.com/proxy/XgsMFIqpIMxdeD_RgJsJL_lkzixtkvXdpBfLKmyvbPjS6p7qqQPomn9mIjo9iVM1BgPvBB4GJWTfqRr41j30U2hM6IuLrriOIwPHRW67r9Id8nhj81HC69OPdzxzofaP4EbDy5z69_2jsvMhXFb_dS6WvgjuITI7',
+  img: imgPaleceHolder,
   description: '',
   inCart: false,
   isFavorite: false,
