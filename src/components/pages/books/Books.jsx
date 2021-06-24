@@ -17,7 +17,6 @@ export const Books = () => {
   return (
     <>
       <Carousel />
-      <SideBar />
       <SearchBar />
       <BooksList />
       <Pagination />
