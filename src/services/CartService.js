@@ -13,7 +13,6 @@ export class CartService {
     const data = await HTTPService.get(`${API_URL}/carts?_userId=${userId}`, {
       Authorization: `Bearer ${token}`,
     });
-    console.log('getUserCart', data);
     this.cartId = data[0].id;
 
     this.cartProductsCounts = data[0].products;
@@ -31,7 +30,6 @@ export class CartService {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log('update', newCart);
     this.cartProductsCounts = newCart.products;
     return this.cartProductsCounts;
   }
@@ -39,9 +37,7 @@ export class CartService {
   static async changeProductCount({ productId, count, token }) {
     const id = productId.toString();
     if (this.cartProductsCounts.hasOwnProperty(id)) {
-      console.log(this.cartProductsCounts[id]);
       this.cartProductsCounts = { ...this.cartProductsCounts, [id]: count };
-      console.log(this.cartProductsCounts[id]);
     }
 
     const updatedProducts = await this.updateCartProducts({ token });

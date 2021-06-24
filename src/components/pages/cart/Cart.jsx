@@ -15,6 +15,7 @@ import {
   cartProductsTotalSelector,
 } from '../../../store/selectors/cart-selector';
 import {
+  createOrderAsync,
   getCartProductsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
@@ -29,6 +30,10 @@ export const Cart = () => {
     await dispatch(getUserCartAsync());
     await dispatch(getCartProductsAsync());
   }, []);
+
+  const onCheckout = () => {
+    dispatch(createOrderAsync(cartProducts));
+  };
 
   const renderCart = (
     <>
@@ -50,6 +55,7 @@ export const Cart = () => {
           color="primary"
           size="large"
           variant="contained"
+          onClick={onCheckout}
         >
           Checkout
         </Button>

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CartService } from '../../services/CartService';
+import { OrderService } from '../../services/OrderService';
 import {
   currentUserIdSelector,
   tokenSelector,
@@ -9,6 +10,21 @@ const initialState = {
   products: [],
   productsCounts: {},
 };
+
+export const createOrderAsync = createAsyncThunk(
+  'order/fetch',
+  async (products, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
+    const data = await OrderService.createOrder({
+      token,
+      userId,
+      products
+    });
+    return data;
+  }
+);
 
 export const getUserCartAsync = createAsyncThunk(
   'getUserCart/fetch',
@@ -47,7 +63,6 @@ export const changeProductCountAsync = createAsyncThunk(
   async ({ productId, count }, store) => {
     const token = tokenSelector(store.getState());
     const userId = currentUserIdSelector(store.getState());
-    console.log(productId, count);
     const data = await CartService.changeProductCount({
       userId,
       productId,
@@ -102,7 +117,6 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCartProductsAsync.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.products = action.payload;
         return state;
       })
@@ -119,6 +133,10 @@ export const cartSlice = createSlice({
       })
       .addCase(removeFromCartAsync.fulfilled, (state, action) => {
         state.productsCounts = action.payload;
+        return state;
+      })
+      .addCase(createOrderAsync.fulfilled, (state) => {
+        state = initialState;
         return state;
       });
   },
