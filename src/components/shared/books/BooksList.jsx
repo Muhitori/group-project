@@ -46,6 +46,7 @@ export const BooksList = () => {
   const searchQueryResult = searchResult.map((product) => (
     <BookCard key={product.id} {...product} />
   ));
+
   const allProducts = products.map((product) => (
     <BookCard
       key={product.id}
@@ -57,10 +58,7 @@ export const BooksList = () => {
 
   const renderProductCards = () => {
     if (searchQuery) {
-      if (!searchResult.length) {
-        return <NotFound />;
-      }
-      return searchQueryResult;
+      return !searchResult.length ? <NotFound /> : searchQueryResult;
     }
     return allProducts;
   };
