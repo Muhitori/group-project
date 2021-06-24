@@ -18,7 +18,7 @@ export const Cart = () => {
 
   const dispatch = useDispatch();
   const cartProducts = useSelector(cartProductsSelector);
-  useEffect(() => dispatch(getCartProductsAsync()));
+  useEffect(() => dispatch(getCartProductsAsync()), []);
   return (
     <Container>
       <Typography align="center" variant="h6" gutterBottom>

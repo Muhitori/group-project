@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
   Typography,
@@ -11,9 +12,15 @@ import {
   TextField,
 } from '@material-ui/core';
 import { useStyle } from './Styles';
+import { removeFromCartAsync } from '../../../store/slices/cart-slice';
 
-export const CartItem = ({ id, title, description, price, img }) => {
+export const CartItem = ({ id, title, description, price, img, count }) => {
   const classes = useStyle();
+  const dispatch = useDispatch();
+  const onDelete = () => {
+    dispatch(removeFromCartAsync({ productId: id }));
+  };
+
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.cardMedia} image={img} title={title} />
@@ -39,7 +46,7 @@ export const CartItem = ({ id, title, description, price, img }) => {
             id="filled-number"
             label="Books count"
             type="number"
-            defaultValue="1"
+            defaultValue={count}
             variant="outlined"
             InputProps={{
               inputProps: {
@@ -52,6 +59,7 @@ export const CartItem = ({ id, title, description, price, img }) => {
             color="secondary"
             size="large"
             variant="contained"
+            onClick={onDelete}
           >
             Delete
           </Button>
@@ -67,6 +75,7 @@ CartItem.propTypes = {
   description: PropTypes.string,
   price: PropTypes.number,
   img: PropTypes.string,
+  count: PropTypes.number,
 };
 
 CartItem.defaultProps = {
@@ -75,4 +84,5 @@ CartItem.defaultProps = {
   description: '',
   price: 0,
   img: '',
+  count: 1,
 };

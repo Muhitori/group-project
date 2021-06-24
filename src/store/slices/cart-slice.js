@@ -75,7 +75,6 @@ export const toggleCartProductAsync = createAsyncThunk(
       productId,
       token,
     });
-    console.log(data);
     return data;
   }
 );
@@ -86,10 +85,11 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // .addCase(getCartProductsAsync.fulfilled, (state, action) => {
-      //   state.products = action.payload;
-      //   return state;
-      // })
+      .addCase(getCartProductsAsync.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.products = action.payload;
+        return state;
+      })
       .addCase(getCartProductsCountsAsync.fulfilled, (state, action) => {
         state.productsCounts = action.payload;
         return state;

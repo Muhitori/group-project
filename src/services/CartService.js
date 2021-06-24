@@ -63,10 +63,10 @@ export class CartService {
   }
 
   static async removeFromCart({ productId, token }) {
-    if (this.cartProductsIds.includes(productId)) {
-      this.cartProducts = this.cartProducts.filter(
-        ({ id }) => id !== productId
-      );
+    const id = productId.toString();
+    if (Object.prototype.hasOwnProperty.call(this.cartProductsCounts, id)) {
+      const { [id]: remove, ...rest } = this.cartProductsCounts;
+      this.cartProductsCounts = rest;
     }
     const updatedProducts = await this.updateCartProducts({ token });
 
@@ -75,7 +75,6 @@ export class CartService {
 
   static async toggleCartProduct({ productId, token }) {
     const id = productId.toString();
-    console.log(this.cartProductsCounts);
     if (Object.prototype.hasOwnProperty.call(this.cartProductsCounts, id)) {
       const { [id]: remove, ...rest } = this.cartProductsCounts;
       this.cartProductsCounts = rest;
@@ -89,11 +88,12 @@ export class CartService {
 
   static async getCartProducts({ token }) {
     const cartProducts = Promise.all(
-      this.cartProducts.map(async ({ id, count }) => {
-        const product = await ProductService.getProductById({ id, token });
+      Object.entries(this.cartProductsCounts).map(async ([id, count]) => {
+        const product = await ProductService.getProductById({ id: +id, token });
         return { ...product, count };
       })
     );
+    console.log(cartProducts);
     return cartProducts;
   }
 
