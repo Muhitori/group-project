@@ -6,7 +6,7 @@ import { getProductsAsync } from '../../../store/slices/product-slice';
 import { productListSelector } from '../../../store/selectors/product-selector';
 import { Spinner } from '../loader/loader';
 import {
-  getCartProductsIdsAsync,
+  getCartProductsCountsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
 import { cartProductsIdsSelector } from '../../../store/selectors/cart-selector';
@@ -29,7 +29,7 @@ export const BooksList = () => {
     await dispatch(getProductsAsync({ pageNumber: 1 }));
 
     await dispatch(getUserCartAsync());
-    await dispatch(getCartProductsIdsAsync());
+    await dispatch(getCartProductsCountsAsync());
 
     await dispatch(getUserFavoritesAsync());
     await dispatch(getFavoriteProductsIdsAsync());
@@ -40,7 +40,7 @@ export const BooksList = () => {
     <BookCard
       key={product.id}
       {...product}
-      inCart={cartProductIds?.includes(product.id)}
+      inCart={cartProductIds?.includes(product.id.toString())}
       isFavorite={favoriteProductsIds?.includes(product.id)}
     />
   ));

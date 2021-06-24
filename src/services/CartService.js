@@ -5,15 +5,18 @@ import { ProductService } from './ProductService';
 export class CartService {
   static cartId = null;
 
-  static cartProductsIds = [];
+  static cartProductsCounts = {};
+
+  static cartProducts = {};
 
   static async getUserCart({ userId, token }) {
     const data = await HTTPService.get(`${API_URL}/carts?_userId=${userId}`, {
       Authorization: `Bearer ${token}`,
     });
-
+    console.log('getUserCart', data);
     this.cartId = data[0].id;
-    this.cartProductsIds = data[0].products;
+
+    this.cartProductsCounts = data[0].products;
 
     return data[0];
   }
@@ -22,21 +25,36 @@ export class CartService {
     const newCart = await HTTPService.patch(
       `${API_URL}/carts/${this.cartId}`,
       {
-        products: this.cartProductsIds,
+        products: this.cartProductsCounts,
       },
       {
         Authorization: `Bearer ${token}`,
       }
     );
+    console.log('update', newCart);
+    this.cartProductsCounts = newCart.products;
+    return this.cartProductsCounts;
+  }
 
-    this.cartProductsIds = newCart.products;
+  static async setCartProducts({ products, token }) {
+    const newCart = await HTTPService.patch(
+      `${API_URL}/carts/${this.cartId}`,
+      {
+        products,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    this.cartProducts = newCart.products;
+    this.cartProductsIds = newCart.products.map(({ id }) => id);
 
     return newCart.products;
   }
 
   static async addToCart({ productId, token }) {
     if (!this.cartProductsIds.includes(productId)) {
-      this.cartProductsIds = [...this.cartProductsIds, productId];
+      this.cartProducts = [...this.cartProducts, { id: productId, count: 1 }];
     }
 
     const updatedProducts = await this.updateCartProducts({ token });
@@ -46,8 +64,8 @@ export class CartService {
 
   static async removeFromCart({ productId, token }) {
     if (this.cartProductsIds.includes(productId)) {
-      this.cartProductsIds = this.cartProductsIds.filter(
-        (cartProductId) => cartProductId !== productId
+      this.cartProducts = this.cartProducts.filter(
+        ({ id }) => id !== productId
       );
     }
     const updatedProducts = await this.updateCartProducts({ token });
@@ -56,30 +74,30 @@ export class CartService {
   }
 
   static async toggleCartProduct({ productId, token }) {
-    if (this.cartProductsIds.includes(productId)) {
-      this.cartProductsIds = this.cartProductsIds.filter(
-        (cartProductId) => cartProductId !== productId
-      );
+    const id = productId.toString();
+    console.log(this.cartProductsCounts);
+    if (Object.prototype.hasOwnProperty.call(this.cartProductsCounts, id)) {
+      const { [id]: remove, ...rest } = this.cartProductsCounts;
+      this.cartProductsCounts = rest;
     } else {
-      this.cartProductsIds = [...this.cartProductsIds, productId];
+      this.cartProductsCounts = { ...this.cartProductsCounts, [id]: 1 };
     }
 
-    const updatedProducts = await this.updateCartProducts({ token });
-
-    return updatedProducts;
+    await this.updateCartProducts({ token });
+    return this.cartProductsCounts;
   }
 
   static async getCartProducts({ token }) {
     const cartProducts = Promise.all(
-      this.cartProductsIds.map((productId) =>
-        ProductService.getProductById({ id: productId, token })
-      )
+      this.cartProducts.map(async ({ id, count }) => {
+        const product = await ProductService.getProductById({ id, token });
+        return { ...product, count };
+      })
     );
-
     return cartProducts;
   }
 
-  static async getCartProductsIds() {
-    return this.cartProductsIds;
+  static async getCartProductsCounts() {
+    return this.cartProductsCounts;
   }
 }

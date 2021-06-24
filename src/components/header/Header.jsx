@@ -12,7 +12,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import { clearAuthState } from '../../store/slices/auth-slice';
 import { tokenSelector } from '../../store/selectors/auth-selector';
 import { useStyle } from './Styles';
-import { cartProductsIdsSelector } from '../../store/selectors/cart-selector';
+import { cartProductsCountSelector } from '../../store/selectors/cart-selector';
 import { CartCounter } from '../common/cart-counter/CartCounter';
 
 export const Header = () => {
@@ -20,9 +20,7 @@ export const Header = () => {
   const classes = useStyle();
 
   const isLogin = useSelector(tokenSelector);
-  const cartProducts = useSelector(cartProductsIdsSelector);
-  const cartLength = cartProducts ? cartProducts.length : 0;
-
+  const cartProductsCount = useSelector(cartProductsCountSelector);
   const logout = () => dispatch(clearAuthState());
 
   return (
@@ -56,7 +54,7 @@ export const Header = () => {
                     color="primary"
                     className={classes.toolbarButton}
                   >
-                    {!!cartLength && <CartCounter cartLength={cartLength} />}
+                    {!!cartProductsCount && <CartCounter cartLength={cartProductsCount} />}
                     Cart
                   </Button>
                 </NavLink>

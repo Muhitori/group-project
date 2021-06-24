@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   products: [],
-  productsIds: [],
+  productsCounts: {},
 };
 
 export const getUserCartAsync = createAsyncThunk(
@@ -34,10 +34,10 @@ export const getCartProductsAsync = createAsyncThunk(
   }
 );
 
-export const getCartProductsIdsAsync = createAsyncThunk(
+export const getCartProductsCountsAsync = createAsyncThunk(
   'getCartProductsIds/fetch',
   async () => {
-    const products = await CartService.getCartProductsIds();
+    const products = await CartService.getCartProductsCounts();
     return products;
   }
 );
@@ -75,6 +75,7 @@ export const toggleCartProductAsync = createAsyncThunk(
       productId,
       token,
     });
+    console.log(data);
     return data;
   }
 );
@@ -85,15 +86,19 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getCartProductsAsync.fulfilled, (state, action) => {
-        state.products = action.payload;
-        return state;
-      })
-      .addCase(getCartProductsIdsAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+      // .addCase(getCartProductsAsync.fulfilled, (state, action) => {
+      //   state.products = action.payload;
+      //   return state;
+      // })
+      .addCase(getCartProductsCountsAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
         return state;
       })
       .addCase(toggleCartProductAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
+        return state;
+      })
+      .addCase(removeFromCartAsync.fulfilled, (state, action) => {
         state.productsIds = action.payload;
         return state;
       });
