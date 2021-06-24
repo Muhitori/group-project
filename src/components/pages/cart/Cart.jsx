@@ -10,15 +10,20 @@ import {
 } from '@material-ui/core';
 import { CartItem } from './CartItem';
 import { useStyle } from './Styles';
-import { cartProductsSelector } from '../../../store/selectors/cart-selector';
-import { getCartProductsAsync } from '../../../store/slices/cart-slice';
+import { cartProductsSelector, cartProductsTotalSelector } from '../../../store/selectors/cart-selector';
+import { getCartProductsAsync, getUserCartAsync } from '../../../store/slices/cart-slice';
 
 export const Cart = () => {
   const classes = useStyle();
-
   const dispatch = useDispatch();
   const cartProducts = useSelector(cartProductsSelector);
-  useEffect(() => dispatch(getCartProductsAsync()), []);
+  const cartTotal = useSelector(cartProductsTotalSelector);
+
+  useEffect(async () => {
+    await dispatch(getUserCartAsync());
+    await dispatch(getCartProductsAsync());
+  }, []);
+
   return (
     <Container>
       <Typography align="center" variant="h6" gutterBottom>
@@ -32,7 +37,9 @@ export const Cart = () => {
       </Grid>
       <Grid container item justify="flex-end">
         <Typography component="h6" variant="h4" gutterBottom>
-          Total: $1000
+          Total:
+          {' '}
+          {cartTotal}
         </Typography>
       </Grid>
       <Grid container item justify="center">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
@@ -12,13 +12,23 @@ import {
   TextField,
 } from '@material-ui/core';
 import { useStyle } from './Styles';
-import { removeFromCartAsync } from '../../../store/slices/cart-slice';
+import {
+  changeProductCountAsync,
+  getCartProductsAsync,
+  removeFromCartAsync,
+} from '../../../store/slices/cart-slice';
 
 export const CartItem = ({ id, title, description, price, img, count }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const onDelete = () => {
-    dispatch(removeFromCartAsync({ productId: id }));
+  const onDelete = async () => {
+    await dispatch(removeFromCartAsync({ productId: id }));
+    dispatch(getCartProductsAsync());
+  };
+
+  const onChangeCount = async ({ target }) => {
+    await dispatch(changeProductCountAsync({ productId: id, count: +target.value }));
+    dispatch(getCartProductsAsync());
   };
 
   return (
@@ -38,7 +48,7 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
             variant="h6"
           >
             Price:
-            {price}
+            {price * count}
           </Typography>
           <TextField
             className={classes.cardActionsField}
@@ -53,6 +63,7 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
                 min: 1,
               },
             }}
+            onChange={onChangeCount}
           />
           <Button
             className={classes.cardActionsField}

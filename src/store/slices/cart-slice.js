@@ -42,6 +42,22 @@ export const getCartProductsCountsAsync = createAsyncThunk(
   }
 );
 
+export const changeProductCountAsync = createAsyncThunk(
+  'changeCountInCart/fetch',
+  async ({ productId, count }, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+    console.log(productId, count);
+    const data = await CartService.changeProductCount({
+      userId,
+      productId,
+      count,
+      token,
+    });
+    return data;
+  }
+);
+
 export const addToCartAsync = createAsyncThunk(
   'addToCart/fetch',
   async ({ productId }, store) => {
@@ -90,6 +106,9 @@ export const cartSlice = createSlice({
         state.products = action.payload;
         return state;
       })
+      .addCase(changeProductCountAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
+      })
       .addCase(getCartProductsCountsAsync.fulfilled, (state, action) => {
         state.productsCounts = action.payload;
         return state;
@@ -99,7 +118,7 @@ export const cartSlice = createSlice({
         return state;
       })
       .addCase(removeFromCartAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+        state.productsCounts = action.payload;
         return state;
       });
   },

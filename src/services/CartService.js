@@ -36,20 +36,33 @@ export class CartService {
     return this.cartProductsCounts;
   }
 
-  static async setCartProducts({ products, token }) {
-    const newCart = await HTTPService.patch(
-      `${API_URL}/carts/${this.cartId}`,
-      {
-        products,
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      }
-    );
-    this.cartProducts = newCart.products;
-    this.cartProductsIds = newCart.products.map(({ id }) => id);
+  // static async setCartProducts({ products, token }) {
+  //   const newCart = await HTTPService.patch(
+  //     `${API_URL}/carts/${this.cartId}`,
+  //     {
+  //       products,
+  //     },
+  //     {
+  //       Authorization: `Bearer ${token}`,
+  //     }
+  //   );
+  //   this.cartProducts = newCart.products;
+  //   this.cartProductsIds = newCart.products.map(({ id }) => id);
 
-    return newCart.products;
+  //   return newCart.products;
+  // }
+
+  static async changeProductCount({ productId, count, token }) {
+    const id = productId.toString();
+    if (this.cartProductsCounts.hasOwnProperty(id)) {
+      console.log(this.cartProductsCounts[id]);
+      this.cartProductsCounts = { ...this.cartProductsCounts, [id]: count };
+      console.log(this.cartProductsCounts[id]);
+    }
+
+    const updatedProducts = await this.updateCartProducts({ token });
+
+    return updatedProducts;
   }
 
   static async addToCart({ productId, token }) {
@@ -93,7 +106,6 @@ export class CartService {
         return { ...product, count };
       })
     );
-    console.log(cartProducts);
     return cartProducts;
   }
 
