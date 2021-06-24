@@ -32,36 +32,18 @@ export const BooksList = () => {
   const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
-  useEffect(async () => {
-    await dispatch(getProductsAsync({ pageNumber: 1 }));
+  useEffect(() => {
+    dispatch(getProductsAsync({ pageNumber: 1 }));
 
-    await dispatch(getUserCartAsync());
-    await dispatch(getCartProductsIdsAsync());
-    await dispatch(getUserFavoritesAsync());
-    await dispatch(getFavoriteProductsIdsAsync());
-    await dispatch(getProductsAsync({ pageNumber: 1 }));
+    dispatch(getUserCartAsync());
+    dispatch(getCartProductsIdsAsync());
+    dispatch(getUserFavoritesAsync());
+    dispatch(getFavoriteProductsIdsAsync());
+    dispatch(getProductsAsync({ pageNumber: 1 }));
     setIsLoading(false);
   }, []);
 
-  const searchQueryResult = searchResult.map((product) => (
-    <BookCard key={product.id} {...product} />
-  ));
-
-  const allProducts = products.map((product) => (
-    <BookCard
-      key={product.id}
-      {...product}
-      inCart={cartProductIds?.includes(product.id)}
-      isFavorite={favoriteProductsIds?.includes(product.id)}
-    />
-  ));
-
-  const renderProductCards = () => {
-    if (searchQuery) {
-      return !searchResult.length ? <NotFound /> : searchQueryResult;
-    }
-    return allProducts;
-  };
+  const pageProd = searchQuery ? searchResult : products;
 
   return (
     <Box
@@ -70,7 +52,20 @@ export const BooksList = () => {
       justifyContent="center"
       marginTop="20px"
     >
-      {isLoading ? <Spinner /> : renderProductCards()}
+      {isLoading ? (
+        <Spinner />
+      ) : pageProd.length ? (
+        pageProd.map((product) => (
+          <BookCard
+            key={product.id}
+            {...product}
+            inCart={cartProductIds?.includes(product.id)}
+            isFavorite={favoriteProductsIds?.includes(product.id)}
+          />
+        ))
+      ) : (
+        <NotFound />
+      )}
     </Box>
   );
 };
