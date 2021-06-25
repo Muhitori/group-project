@@ -10,7 +10,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { loggerMiddleware } from './middlewares';
+import { loggerMiddleware, errorHandlingMiddleware } from './middlewares';
 import { uiReducer } from './slices/ui-slice';
 import { authReducer } from './slices/auth-slice';
 import { productReducer } from './slices/product-slice';
@@ -42,5 +42,6 @@ export const store = configureStore({
       },
     }),
     loggerMiddleware,
+    errorHandlingMiddleware,
   ],
 });
