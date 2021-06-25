@@ -77,9 +77,9 @@ export const Cart = () => {
       ) : (
         <Grid container item class={classes.emptyMessage}>
           <Typography component="h5" variant="h6" gutterBottom>
-            Корзина пуста
+            Cart is empty
           </Typography>
-          <NavLink to="/">Вернуться к покупкам</NavLink>
+          <NavLink to="/">Back to shopping</NavLink>
         </Grid>
       )}
     </Container>

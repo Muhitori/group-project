@@ -1,7 +1,10 @@
-import React from 'react';
+import { Divider, Grid, Typography } from '@material-ui/core';
 
 export const Contacts = () => (
-  <div>
-    <h1>Contacts</h1>
-  </div>
+  <Grid>
+    <Typography align="center" variant="h4" gutterBottom>
+      Contacts
+    </Typography>
+    <Divider />
+  </Grid>
 );

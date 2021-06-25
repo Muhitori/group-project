@@ -4,6 +4,6 @@ export const useStyle = makeStyles((theme) => ({
   main: {
     position: 'relative',
     margin: theme.spacing(8),
-    padding: theme.spacing(3, 2, 3),
+    padding: theme.spacing(4, 2, 3),
   },
 }));
