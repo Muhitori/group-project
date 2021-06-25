@@ -10,7 +10,7 @@ export const useStyle = makeStyles((theme) => ({
     position: 'fixed',
     backgroundColor: MAIN_COLOR,
     width: '100%',
-    zIndex: '99999',
+    zIndex: '1',
     borderBottom: `1px solid ${LIGHT_COLOR}`,
     boxShadow: `3px 3px 2px 1px ${LIGHT_COLOR_SHADOW}`,
   },

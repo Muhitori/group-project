@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import {
@@ -15,10 +16,10 @@ import {
   cartProductsTotalSelector,
 } from '../../../store/selectors/cart-selector';
 import {
-  createOrderAsync,
   getCartProductsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
+import { CheckoutForm } from './form/CheckoutForm';
 
 export const Cart = () => {
   const classes = useStyle();
@@ -26,14 +27,16 @@ export const Cart = () => {
   const cartProducts = useSelector(cartProductsSelector);
   const cartTotal = useSelector(cartProductsTotalSelector);
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const toggleOpen = () => {
+    setOpenModal(!openModal);
+  };
+
   useEffect(async () => {
     await dispatch(getUserCartAsync());
-    await dispatch(getCartProductsAsync());
+    dispatch(getCartProductsAsync());
   }, []);
-
-  const onCheckout = () => {
-    dispatch(createOrderAsync(cartProducts));
-  };
 
   const renderCart = (
     <>
@@ -55,11 +58,12 @@ export const Cart = () => {
           color="primary"
           size="large"
           variant="contained"
-          onClick={onCheckout}
+          onClick={toggleOpen}
         >
           Checkout
         </Button>
       </Grid>
+      <CheckoutForm open={openModal} toggleOpen={toggleOpen} />
     </>
   );
 

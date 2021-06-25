@@ -13,7 +13,7 @@ const initialState = {
 
 export const createOrderAsync = createAsyncThunk(
   'order/fetch',
-  async (products, store) => {
+  async ({ products, info }, store) => {
     const token = tokenSelector(store.getState());
     const userId = currentUserIdSelector(store.getState());
 
@@ -21,6 +21,7 @@ export const createOrderAsync = createAsyncThunk(
       token,
       userId,
       products,
+      info
     });
     if (data) {
       await CartService.clearCart({ token });

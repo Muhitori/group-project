@@ -92,6 +92,7 @@ export class CartService {
   static async clearCart({ token }) {
     this.cartProducts = [];
     this.cartProductsCounts = {};
+    console.log('clear', this.cartId);
     await this.updateCartProducts({ token });
     return this.cartProductsCounts;
   }
