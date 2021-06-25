@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
 import { PropTypes } from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BookCard } from './BookCard';
 import { getProductsAsync } from '../../../store/slices/product-slice';
@@ -26,9 +26,11 @@ import {
   getUserFavoritesAsync,
 } from '../../../store/slices/favorites-slice';
 
-export const BooksList = ({ isOnlyFavoriteProducts }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
+export const BooksList = ({
+  isOnlyFavoriteProducts,
+  isLoading,
+  setIsLoading,
+}) => {
   const dispatch = useDispatch();
 
   const products = useSelector(productListSelector);
@@ -51,7 +53,9 @@ export const BooksList = ({ isOnlyFavoriteProducts }) => {
   }, []);
 
   const unFavoriteProducts = searchQuery ? searchResult : products;
-  const pageProd = isOnlyFavoriteProducts ? favoriteProducts : unFavoriteProducts;
+  const pageProd = isOnlyFavoriteProducts
+    ? favoriteProducts
+    : unFavoriteProducts;
 
   return (
     <Box
@@ -80,4 +84,6 @@ export const BooksList = ({ isOnlyFavoriteProducts }) => {
 
 BooksList.propTypes = {
   isOnlyFavoriteProducts: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
 };
