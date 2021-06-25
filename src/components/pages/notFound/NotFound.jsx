@@ -4,7 +4,7 @@ export const NotFound = () => {
   return (
     <Card variant="outlined">
       <Box>
-        <div>There is no such book, please enter a different title!</div>
+        <div>There is no such book!</div>
       </Box>
     </Card>
   );
