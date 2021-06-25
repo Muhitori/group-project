@@ -73,7 +73,6 @@ export class FavoritesService {
   }
 
   static async getFavoriteProducts({ token }) {
-    console.log(this.favoriteProductsIds);
     const favoriteProducts = Promise.all(
       this.favoriteProductsIds.map((productId) =>
         ProductService.getProductById({ id: productId, token })
