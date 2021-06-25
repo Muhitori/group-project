@@ -33,7 +33,7 @@ export const BooksList = ({
 }) => {
   const dispatch = useDispatch();
 
-  const products = useSelector(productListSelector);
+  const productsList = useSelector(productListSelector);
   const searchResult = useSelector(productsBySearchResultSelector);
   const searchQuery = useSelector(productsSearchQuerySelector);
   const cartProductIds = useSelector(cartProductsIdsSelector);
@@ -52,10 +52,24 @@ export const BooksList = ({
     setIsLoading(false);
   }, []);
 
-  const unFavoriteProducts = searchQuery ? searchResult : products;
-  const pageProd = isOnlyFavoriteProducts
-    ? favoriteProducts
-    : unFavoriteProducts;
+  const products = searchQuery ? searchResult : productsList;
+  const books = isOnlyFavoriteProducts ? favoriteProducts : products;
+
+  const renderBooks = () =>
+    books.length ? (
+      books.map((product) => (
+        <BookCard
+          key={product.id}
+          {...product}
+          inCart={cartProductIds?.includes(product.id.toString())}
+          isFavorite={favoriteProductsIds?.includes(product.id)}
+        />
+      ))
+    ) : (
+      <NotFound />
+    );
+
+  const renderLoader = () => <Spinner />;
 
   return (
     <Box
@@ -64,20 +78,7 @@ export const BooksList = ({
       justifyContent="center"
       marginTop="20px"
     >
-      {isLoading ? (
-        <Spinner />
-      ) : pageProd.length ? (
-        pageProd.map((product) => (
-          <BookCard
-            key={product.id}
-            {...product}
-            inCart={cartProductIds?.includes(product.id.toString())}
-            isFavorite={favoriteProductsIds?.includes(product.id)}
-          />
-        ))
-      ) : (
-        <NotFound />
-      )}
+      {isLoading ? renderLoader() : renderBooks()}
     </Box>
   );
 };
