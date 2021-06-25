@@ -2,6 +2,12 @@ export const cartStateSelector = (state) => state.cart;
 
 export const cartProductsSelector = (state) => state.cart.products;
 
+export const cartProductsForOrder = (state) =>
+  Object.entries(state.cart.productsCounts).map(([id, count]) => ({
+    id,
+    count,
+  }));
+
 export const cartProductsIdsSelector = (state) =>
   Object.keys(state.cart.productsCounts);
 

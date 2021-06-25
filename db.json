@@ -8022,7 +8022,9 @@
     {
       "id": 1,
       "userId": 1,
-      "products": []
+      "products": [
+        6
+      ]
     }
   ],
   "carts": [
@@ -8032,5 +8034,140 @@
       "products": {}
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "userId": 1,
+      "products": {
+        "16": 1,
+        "17": 1,
+        "18": 1,
+        "19": 1,
+        "20": 1,
+        "21": 1
+      },
+      "info": {
+        "phone": "9874563218",
+        "date": "2021-06-25T23:19",
+        "city": "Birmingham",
+        "adress": "Birmingham, 8"
+      },
+      "id": 11
+    },
+    {
+      "userId": 1,
+      "products": [
+        {
+          "id": "6",
+          "count": 1
+        },
+        {
+          "id": "7",
+          "count": 1
+        },
+        {
+          "id": "8",
+          "count": 1
+        },
+        {
+          "id": "9",
+          "count": 1
+        },
+        {
+          "id": "10",
+          "count": 1
+        },
+        {
+          "id": "11",
+          "count": 1
+        }
+      ],
+      "info": {
+        "phone": "9874563218",
+        "date": "2021-06-25T23:22",
+        "city": "Birmingham",
+        "adress": "Birmingham, 8"
+      },
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "products": [
+        {
+          "id": "4",
+          "count": 1
+        },
+        {
+          "id": "7",
+          "count": 1
+        },
+        {
+          "id": "8",
+          "count": 1
+        },
+        {
+          "id": "11",
+          "count": 1
+        }
+      ],
+      "info": {
+        "phone": "9874563218",
+        "date": "2021-06-25T23:32",
+        "city": "Birmingham",
+        "adress": "Birmingham, 8"
+      },
+      "id": 13
+    },
+    {
+      "userId": 1,
+      "products": [
+        {
+          "id": "4",
+          "count": 1
+        },
+        {
+          "id": "7",
+          "count": 1
+        },
+        {
+          "id": "8",
+          "count": 1
+        },
+        {
+          "id": "11",
+          "count": 1
+        }
+      ],
+      "info": {
+        "phone": "9874563218",
+        "date": "2021-06-25T23:34",
+        "city": "Birmingham",
+        "adress": "Birmingham, 8"
+      },
+      "id": 14
+    },
+    {
+      "userId": 1,
+      "products": [
+        {
+          "id": "5",
+          "count": 1
+        },
+        {
+          "id": "8",
+          "count": 1
+        },
+        {
+          "id": "9",
+          "count": 1
+        }
+      ],
+      "info": {
+        "phone": "9874563218",
+        "date": "2021-06-26T12:15",
+        "city": "Birmingham",
+        "adress": "Birmingham, 8"
+      },
+      "id": 15
+    }
+  ]
 }

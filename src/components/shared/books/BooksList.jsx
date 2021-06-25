@@ -39,18 +39,14 @@ export const BooksList = ({ isOnlyFavoriteProducts }) => {
   const favoriteProducts = useSelector(favoritesProductsSelector);
 
   useEffect(async () => {
-    await dispatch(getProductsAsync({ pageNumber: 1 }));
+    dispatch(getProductsAsync({ pageNumber: 1 }));
 
     await dispatch(getUserCartAsync());
-    await dispatch(getCartProductsCountsAsync());
-
-    dispatch(getUserCartAsync());
-    dispatch(getCartProductsIdsAsync());
+    dispatch(getCartProductsCountsAsync());
 
     dispatch(getUserFavoritesAsync());
     dispatch(getFavoriteProductsAsync());
     dispatch(getFavoriteProductsIdsAsync());
-
     setIsLoading(false);
   }, []);
 
@@ -71,7 +67,7 @@ export const BooksList = ({ isOnlyFavoriteProducts }) => {
           <BookCard
             key={product.id}
             {...product}
-            inCart={cartProductIds?.includes(product.id)}
+            inCart={cartProductIds?.includes(product.id.toString())}
             isFavorite={favoriteProductsIds?.includes(product.id)}
           />
         ))

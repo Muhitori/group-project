@@ -26,3 +26,30 @@ export const validatePassword = (testPassword) => {
 
   return '';
 };
+
+export const validateCity = (testCity) => {
+  if (!/^[a-zA-Z/s]*$/.test(testCity)) {
+    return 'Invalid city name';
+  }
+
+  return '';
+};
+
+export const validatePhone = (testPhone) => {
+  if (!/^[0-9]{10}]*$/.test(testPhone)) {
+    return 'Invalid phone number';
+  }
+
+  return '';
+};
+
+export const validateDate = (testDate, minDate) => {
+  const minValidDate = +new Date(minDate);
+  const selectedDate = +new Date(testDate);
+
+  if (selectedDate < minValidDate) {
+    return 'Minimum delivery time - 24 hours';
+  }
+
+  return '';
+};

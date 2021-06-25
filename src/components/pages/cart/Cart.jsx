@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import {
   Grid,
@@ -16,25 +16,26 @@ import {
   cartProductsTotalSelector,
 } from '../../../store/selectors/cart-selector';
 import {
-  createOrderAsync,
   getCartProductsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
+import { CheckoutForm } from './form/CheckoutForm';
 
 export const Cart = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const history = useHistory();
   const cartProducts = useSelector(cartProductsSelector);
   const cartTotal = useSelector(cartProductsTotalSelector);
+
+  const toggleOpen = () => {
+    history.push('/cart/checkout');
+  };
 
   useEffect(async () => {
     await dispatch(getUserCartAsync());
     dispatch(getCartProductsAsync());
   }, []);
-
-  const onCheckout = () => {
-    dispatch(createOrderAsync(cartProducts));
-  };
 
   const renderCart = (
     <>
@@ -56,11 +57,12 @@ export const Cart = () => {
           color="primary"
           size="large"
           variant="contained"
-          onClick={onCheckout}
+          onClick={toggleOpen}
         >
           Checkout
         </Button>
       </Grid>
+      <CheckoutForm toggleOpen={toggleOpen} />
     </>
   );
 
