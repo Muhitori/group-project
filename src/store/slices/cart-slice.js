@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CartService } from '../../services/CartService';
+import { OrderService } from '../../services/OrderService';
 import {
   currentUserIdSelector,
   tokenSelector,
@@ -7,8 +8,28 @@ import {
 
 const initialState = {
   products: [],
-  productsIds: [],
+  productsCounts: {},
 };
+
+export const createOrderAsync = createAsyncThunk(
+  'order/fetch',
+  async (products, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+
+    const data = await OrderService.createOrder({
+      token,
+      userId,
+      products,
+    });
+    if (data) {
+      await CartService.clearCart({ token });
+      return true;
+    }
+
+    return false;
+  }
+);
 
 export const getUserCartAsync = createAsyncThunk(
   'getUserCart/fetch',
@@ -34,11 +55,26 @@ export const getCartProductsAsync = createAsyncThunk(
   }
 );
 
-export const getCartProductsIdsAsync = createAsyncThunk(
+export const getCartProductsCountsAsync = createAsyncThunk(
   'getCartProductsIds/fetch',
   async () => {
-    const products = await CartService.getCartProductsIds();
+    const products = await CartService.getCartProductsCounts();
     return products;
+  }
+);
+
+export const changeProductCountAsync = createAsyncThunk(
+  'changeCountInCart/fetch',
+  async ({ productId, count }, store) => {
+    const token = tokenSelector(store.getState());
+    const userId = currentUserIdSelector(store.getState());
+    const data = await CartService.changeProductCount({
+      userId,
+      productId,
+      count,
+      token,
+    });
+    return data;
   }
 );
 
@@ -89,12 +125,25 @@ export const cartSlice = createSlice({
         state.products = action.payload;
         return state;
       })
-      .addCase(getCartProductsIdsAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+      .addCase(changeProductCountAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
+      })
+      .addCase(getCartProductsCountsAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
         return state;
       })
       .addCase(toggleCartProductAsync.fulfilled, (state, action) => {
-        state.productsIds = action.payload;
+        state.productsCounts = action.payload;
+        return state;
+      })
+      .addCase(removeFromCartAsync.fulfilled, (state, action) => {
+        state.productsCounts = action.payload;
+        return state;
+      })
+      .addCase(createOrderAsync.fulfilled, (state, action) => {
+        if (action.payload) {
+          state = initialState;
+        }
         return state;
       });
   },

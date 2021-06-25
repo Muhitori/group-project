@@ -11,7 +11,7 @@ import {
 import { Spinner } from '../loader/loader';
 import { NotFound } from '../../pages/notFound/NotFound';
 import {
-  getCartProductsIdsAsync,
+  getCartProductsCountsAsync,
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
 import { cartProductsIdsSelector } from '../../../store/selectors/cart-selector';
@@ -32,8 +32,11 @@ export const BooksList = () => {
   const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
-  useEffect(() => {
-    dispatch(getProductsAsync({ pageNumber: 1 }));
+  useEffect(async () => {
+    await dispatch(getProductsAsync({ pageNumber: 1 }));
+
+    await dispatch(getUserCartAsync());
+    await dispatch(getCartProductsCountsAsync());
 
     dispatch(getUserCartAsync());
     dispatch(getCartProductsIdsAsync());

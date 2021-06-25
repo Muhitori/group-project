@@ -32,6 +32,8 @@ module.exports = {
     'react/jsx-curly-newline': 0,
     'object-curly-newline': 0,
     'function-paren-newline': 0,
+    'no-prototype-builtins': 0,
+    'no-debugger': 0,
     'operator-linebreak': 0,
     'no-nested-ternary': 0,
   },
