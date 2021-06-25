@@ -1,10 +1,12 @@
-import { Box, Input, FormControl } from '@material-ui/core';
+import { Input, FormControl } from '@material-ui/core';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getProductsByTitleAsync } from '../../../store/slices/product-slice';
+import { useStyle } from './Styles';
 
 export const SearchBar = () => {
+  const classes = useStyle();
   const [searchQuery, setSearchQuery] = useState('');
 
   const dispatch = useDispatch();
@@ -20,25 +22,18 @@ export const SearchBar = () => {
   };
 
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns="repeat(auto-fill, 500px)"
-      justifyContent="center"
-      marginTop="20px"
-    >
-      <form onSubmit={handleSubmit}>
-        <FormControl>
-          <InputLabel htmlFor="search">search</InputLabel>
-          <Input
-            type="text"
-            autoComplete="off"
-            placeholder="search"
-            value={searchQuery}
-            onChange={handleInputChange}
-            id="search"
-          />
-        </FormControl>
-      </form>
-    </Box>
+    <form className={classes.searchForm} onSubmit={handleSubmit}>
+      <FormControl>
+        <InputLabel htmlFor="search">search</InputLabel>
+        <Input
+          type="text"
+          autoComplete="off"
+          placeholder="search"
+          value={searchQuery}
+          onChange={handleInputChange}
+          id="search"
+        />
+      </FormControl>
+    </form>
   );
 };
