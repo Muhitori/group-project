@@ -8,8 +8,6 @@ export const productsBySearchResultSelector = (state) =>
 export const productsSearchQuerySelector = (state) => state.product.searchQuery;
 export const pageNumberSelector = (state) => state.product.pageNumber;
 
-export const isPageLoadingSelector = (state) => state.product.isPageLoading;
-
 export const isNextPageSelector = (state) =>
   state.product.pageNumber <= state.product.pageCount;
 

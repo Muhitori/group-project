@@ -9,6 +9,7 @@ import { BooksControls } from '../../common/booksControls/BooksControls';
 export const Books = () => {
   const dispatch = useDispatch();
   const [isOnlyFavoriteProducts, setOnlyFavoriteProducts] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(getPageCount());
@@ -21,8 +22,12 @@ export const Books = () => {
         isOnlyFavoriteProducts={isOnlyFavoriteProducts}
         setOnlyFavoriteProducts={setOnlyFavoriteProducts}
       />
-      <BooksList isOnlyFavoriteProducts={isOnlyFavoriteProducts} />
-      {!isOnlyFavoriteProducts && <Pagination />}
+      <BooksList
+        isOnlyFavoriteProducts={isOnlyFavoriteProducts}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
+      {!isOnlyFavoriteProducts && <Pagination isLoading={isLoading} />}
     </>
   );
 };

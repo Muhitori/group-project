@@ -1,21 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { Button } from '@material-ui/core';
 import {
   pageNumberSelector,
   isNextPageSelector,
-  isPageLoadingSelector,
 } from '../../store/selectors/product-selector';
 import { getProductsAsync } from '../../store/slices/product-slice';
 import { useStyle } from './Styles';
 
-export const Pagination = () => {
+export const Pagination = ({ isLoading }) => {
   const classes = useStyle();
   const dispatch = useDispatch();
 
   const pageNumber = useSelector(pageNumberSelector);
   const isNextPage = useSelector(isNextPageSelector);
-
-  const isLoading = useSelector(isPageLoadingSelector);
 
   const onLoadMore = () => {
     dispatch(getProductsAsync({ pageNumber }));
@@ -29,4 +27,8 @@ export const Pagination = () => {
       )}
     </div>
   );
+};
+
+Pagination.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 };

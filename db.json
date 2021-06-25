@@ -8022,10 +8022,7 @@
     {
       "id": 1,
       "userId": 1,
-      "products": [
-        0,
-        1
-      ]
+      "products": []
     }
   ],
   "carts": [
