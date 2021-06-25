@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { Box } from '@material-ui/core';
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -52,11 +51,8 @@ export const BooksList = ({ isOnlyFavoriteProducts }) => {
     setIsLoading(false);
   }, []);
 
-  const pageProd = isOnlyFavoriteProducts
-    ? favoriteProducts
-    : searchQuery
-    ? searchResult
-    : products;
+  const unFavoriteProducts = searchQuery ? searchResult : products;
+  const pageProd = isOnlyFavoriteProducts ? favoriteProducts : unFavoriteProducts;
 
   return (
     <Box
