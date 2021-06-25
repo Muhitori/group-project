@@ -1,4 +1,5 @@
 import { Box } from '@material-ui/core';
+import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BookCard } from './BookCard';
@@ -15,13 +16,17 @@ import {
   getUserCartAsync,
 } from '../../../store/slices/cart-slice';
 import { cartProductsIdsSelector } from '../../../store/selectors/cart-selector';
-import { favoritesProductsIdsSelector } from '../../../store/selectors/favorites-selector';
 import {
+  favoritesProductsIdsSelector,
+  favoritesProductsSelector,
+} from '../../../store/selectors/favorites-selector';
+import {
+  getFavoriteProductsAsync,
   getFavoriteProductsIdsAsync,
   getUserFavoritesAsync,
 } from '../../../store/slices/favorites-slice';
 
-export const BooksList = () => {
+export const BooksList = ({ isOnlyFavoriteProducts }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -31,6 +36,7 @@ export const BooksList = () => {
   const searchQuery = useSelector(productsSearchQuerySelector);
   const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
+  const favoriteProducts = useSelector(favoritesProductsSelector);
 
   useEffect(async () => {
     dispatch(getProductsAsync({ pageNumber: 1 }));
@@ -39,11 +45,13 @@ export const BooksList = () => {
     dispatch(getCartProductsCountsAsync());
 
     dispatch(getUserFavoritesAsync());
+    dispatch(getFavoriteProductsAsync());
     dispatch(getFavoriteProductsIdsAsync());
     setIsLoading(false);
   }, []);
 
-  const pageProd = searchQuery ? searchResult : products;
+  const unFavoriteProducts = searchQuery ? searchResult : products;
+  const pageProd = isOnlyFavoriteProducts ? favoriteProducts : unFavoriteProducts;
 
   return (
     <Box
@@ -68,4 +76,8 @@ export const BooksList = () => {
       )}
     </Box>
   );
+};
+
+BooksList.propTypes = {
+  isOnlyFavoriteProducts: PropTypes.bool.isRequired,
 };
