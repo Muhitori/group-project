@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import {
@@ -24,13 +24,12 @@ import { CheckoutForm } from './form/CheckoutForm';
 export const Cart = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const history = useHistory();
   const cartProducts = useSelector(cartProductsSelector);
   const cartTotal = useSelector(cartProductsTotalSelector);
 
-  const [openModal, setOpenModal] = useState(false);
-
   const toggleOpen = () => {
-    setOpenModal(!openModal);
+    history.push('/cart/checkout');
   };
 
   useEffect(async () => {
@@ -63,7 +62,7 @@ export const Cart = () => {
           Checkout
         </Button>
       </Grid>
-      <CheckoutForm open={openModal} toggleOpen={toggleOpen} />
+      <CheckoutForm toggleOpen={toggleOpen} />
     </>
   );
 

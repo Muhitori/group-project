@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import {
   Button,
@@ -20,10 +21,12 @@ import { getMinDeliveryDate } from '../../../../utils/formatDate';
 import { createOrderAsync, getUserCartAsync } from '../../../../store/slices/cart-slice';
 import { cartProductsForOrder } from '../../../../store/selectors/cart-selector';
 
-export const CheckoutForm = ({ open, toggleOpen }) => {
+export const CheckoutForm = () => {
   const classes = useStyle();
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const routeMatch = useRouteMatch('/cart/checkout');
   const products = useSelector(cartProductsForOrder);
 
   const minDeliveryDate = getMinDeliveryDate();
@@ -39,6 +42,10 @@ export const CheckoutForm = ({ open, toggleOpen }) => {
   useEffect(async () => {
     dispatch(getUserCartAsync());
   }, []);
+
+  const closeModal = () => {
+    history.push('/cart');
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -59,6 +66,7 @@ export const CheckoutForm = ({ open, toggleOpen }) => {
         adress,
       };
       dispatch(createOrderAsync({ products, info }));
+      closeModal();
     }
   };
 
@@ -67,8 +75,8 @@ export const CheckoutForm = ({ open, toggleOpen }) => {
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={open}
-      onClose={toggleOpen}
+      open={routeMatch}
+      onClose={closeModal}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
@@ -154,14 +162,4 @@ export const CheckoutForm = ({ open, toggleOpen }) => {
       </Container>
     </Modal>
   );
-};
-
-CheckoutForm.propTypes = {
-  open: PropTypes.bool,
-  toggleOpen: PropTypes.func,
-};
-
-CheckoutForm.defaultProps = {
-  open: false,
-  toggleOpen: () => {}
 };
