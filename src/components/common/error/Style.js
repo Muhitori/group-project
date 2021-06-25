@@ -4,8 +4,8 @@ import { MAIN_COLOR } from '../../../utils/constants';
 export const useStyle = makeStyles((theme) => ({
   'error-container': {
     position: 'absolute',
-    top: theme.spacing(3),
-    right: theme.spacing(3),
+    top: '0',
+    right: '0',
     minWidth: '20%',
     zIndex: '10',
   },

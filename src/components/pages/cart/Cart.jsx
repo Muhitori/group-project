@@ -34,7 +34,7 @@ export const Cart = () => {
 
   useEffect(async () => {
     await dispatch(getUserCartAsync());
-    dispatch(getCartProductsAsync());
+    await dispatch(getCartProductsAsync());
   }, []);
 
   const renderCart = (
@@ -68,15 +68,15 @@ export const Cart = () => {
 
   return (
     <Container>
-      <Typography align="center" variant="h6" gutterBottom>
+      <Typography align="center" variant="h4" gutterBottom>
         Cart
       </Typography>
       <Divider />
       {cartProducts.length ? (
         renderCart
       ) : (
-        <Grid>
-          <Typography component="h6" variant="h4" gutterBottom>
+        <Grid container item class={classes.emptyMessage}>
+          <Typography component="h5" variant="h6" gutterBottom>
             Корзина пуста
           </Typography>
           <NavLink to="/">Вернуться к покупкам</NavLink>

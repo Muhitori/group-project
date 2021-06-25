@@ -51,4 +51,11 @@ export const useStyle = makeStyles((theme) => ({
     width: '90%',
     padding: theme.spacing(0, 2),
   },
+  emptyMessage: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100px',
+  },
 }));
