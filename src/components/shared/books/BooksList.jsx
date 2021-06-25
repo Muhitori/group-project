@@ -3,8 +3,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BookCard } from './BookCard';
 import { getProductsAsync } from '../../../store/slices/product-slice';
-import { productListSelector } from '../../../store/selectors/product-selector';
+import {
+  productListSelector,
+  productsBySearchResultSelector,
+  productsSearchQuerySelector,
+} from '../../../store/selectors/product-selector';
 import { Spinner } from '../loader/loader';
+import { NotFound } from '../../pages/notFound/NotFound';
 import {
   getCartProductsCountsAsync,
   getUserCartAsync,
@@ -17,11 +22,13 @@ import {
 } from '../../../store/slices/favorites-slice';
 
 export const BooksList = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   const products = useSelector(productListSelector);
+  const searchResult = useSelector(productsBySearchResultSelector);
+  const searchQuery = useSelector(productsSearchQuerySelector);
   const cartProductIds = useSelector(cartProductsIdsSelector);
   const favoriteProductsIds = useSelector(favoritesProductsIdsSelector);
 
@@ -31,19 +38,15 @@ export const BooksList = () => {
     await dispatch(getUserCartAsync());
     await dispatch(getCartProductsCountsAsync());
 
-    await dispatch(getUserFavoritesAsync());
-    await dispatch(getFavoriteProductsIdsAsync());
-    setLoading(false);
+    dispatch(getUserCartAsync());
+    dispatch(getCartProductsIdsAsync());
+    dispatch(getUserFavoritesAsync());
+    dispatch(getFavoriteProductsIdsAsync());
+    dispatch(getProductsAsync({ pageNumber: 1 }));
+    setIsLoading(false);
   }, []);
 
-  const productCards = products.map((product) => (
-    <BookCard
-      key={product.id}
-      {...product}
-      inCart={cartProductIds?.includes(product.id.toString())}
-      isFavorite={favoriteProductsIds?.includes(product.id)}
-    />
-  ));
+  const pageProd = searchQuery ? searchResult : products;
 
   return (
     <Box
@@ -52,7 +55,20 @@ export const BooksList = () => {
       justifyContent="center"
       marginTop="20px"
     >
-      {loading ? <Spinner /> : productCards}
+      {isLoading ? (
+        <Spinner />
+      ) : pageProd.length ? (
+        pageProd.map((product) => (
+          <BookCard
+            key={product.id}
+            {...product}
+            inCart={cartProductIds?.includes(product.id)}
+            isFavorite={favoriteProductsIds?.includes(product.id)}
+          />
+        ))
+      ) : (
+        <NotFound />
+      )}
     </Box>
   );
 };

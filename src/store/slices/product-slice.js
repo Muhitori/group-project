@@ -5,6 +5,8 @@ import { pageNumberSelector } from '../selectors/product-selector';
 
 const initialState = {
   list: [],
+  searchResult: [],
+  searchQuery: '',
   currentProduct: {},
   category: '',
   pageNumber: 1,
@@ -47,6 +49,19 @@ export const getProductByIdAsync = createAsyncThunk(
   }
 );
 
+export const getProductsByTitleAsync = createAsyncThunk(
+  'productByTitle/fetch',
+  async ({ searchQuery }, store) => {
+    const token = tokenSelector(store.getState());
+
+    const data = await ProductService.getProductsByTitle({
+      token,
+      searchQuery,
+    });
+    return { data, searchQuery };
+  }
+);
+
 export const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -73,6 +88,11 @@ export const productSlice = createSlice({
       })
       .addCase(getProductByIdAsync.fulfilled, (state, action) => {
         state.currentProduct = action.payload;
+      })
+      .addCase(getProductsByTitleAsync.fulfilled, (state, action) => {
+        const { data, searchQuery } = action.payload;
+        state.searchResult = [...data];
+        state.searchQuery = searchQuery;
       });
   },
 });
