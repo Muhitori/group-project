@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { sliderArrowColor } from '../../../utils/constants';
+import { SLIDER_ARROW_COLOR } from '../../../utils/constants';
 
 export const SlideArrow = ({ className, style, onClick }) => {
   return (
@@ -7,7 +7,7 @@ export const SlideArrow = ({ className, style, onClick }) => {
       className={className}
       style={{
         ...style,
-        backgroundColor: sliderArrowColor,
+        backgroundColor: SLIDER_ARROW_COLOR,
       }}
       onClick={onClick}
     />

@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { SlideArrow } from './SlideArrow';
 import { CustomSlide } from './CustomSlide';
 import { useStyle } from './Styles';
-import { slidesContent } from '../../../utils/constants';
+import { SLIDES_CONTENT } from '../../../utils/constants';
 
 export const Carousel = () => {
   const classes = useStyle();
@@ -20,7 +20,7 @@ export const Carousel = () => {
     nextArrow: <SlideArrow />,
   };
 
-  const slides = slidesContent.map(({ slideNumber, imageUrl }) => (
+  const slides = SLIDES_CONTENT.map(({ slideNumber, imageUrl }) => (
     <CustomSlide
       key={slideNumber}
       slideNumber={slideNumber}

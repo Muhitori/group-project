@@ -5,9 +5,10 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useCardStyles } from './styles';
+import { useCardStyles } from './Styles';
 import { toggleFavoriteProductAsync } from '../../../store/slices/favorites-slice';
 import { toggleCartProductAsync } from '../../../store/slices/cart-slice';
+import { IMG_PLACEHOLDER } from '../../../utils/constants';
 
 const BookCard = ({ id, title, img, description, inCart, isFavorite }) => {
   const classes = useCardStyles();
@@ -82,7 +83,7 @@ BookCard.propTypes = {
 BookCard.defaultProps = {
   id: 0,
   title: '',
-  img: '',
+  img: IMG_PLACEHOLDER,
   description: '',
   inCart: false,
   isFavorite: false,

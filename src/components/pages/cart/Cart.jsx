@@ -72,7 +72,16 @@ export const Cart = () => {
         Cart
       </Typography>
       <Divider />
-      {cartProducts.length ? renderCart : <Grid>Корзина пуста</Grid>}
+      {cartProducts.length ? (
+        renderCart
+      ) : (
+        <Grid>
+          <Typography component="h6" variant="h4" gutterBottom>
+            Корзина пуста
+          </Typography>
+          <NavLink to="/">Вернуться к покупкам</NavLink>
+        </Grid>
+      )}
     </Container>
   );
 };
