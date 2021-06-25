@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import {
   Grid,
@@ -28,7 +29,7 @@ export const Cart = () => {
 
   useEffect(async () => {
     await dispatch(getUserCartAsync());
-    await dispatch(getCartProductsAsync());
+    dispatch(getCartProductsAsync());
   }, []);
 
   const onCheckout = () => {
@@ -69,7 +70,16 @@ export const Cart = () => {
         Cart
       </Typography>
       <Divider />
-      {cartProducts.length ? renderCart : <Grid>Корзина пуста</Grid>}
+      {cartProducts.length ? (
+        renderCart
+      ) : (
+        <Grid>
+          <Typography component="h6" variant="h4" gutterBottom>
+            Корзина пуста
+          </Typography>
+          <NavLink to="/">Вернуться к покупкам</NavLink>
+        </Grid>
+      )}
     </Container>
   );
 };
