@@ -26,7 +26,11 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
   };
 
   const onChangeCount = async ({ target }) => {
-    await dispatch(changeProductCountAsync({ productId: id, count: +target.value }));
+    let newCount = +target.value;
+    if (Number.isNaN(newCount) || newCount < 1) {
+      newCount = 1;
+    }
+    await dispatch(changeProductCountAsync({ productId: id, count: newCount }));
     dispatch(getCartProductsAsync());
   };
 
@@ -37,6 +41,10 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
         <Typography gutterBottom variant="h5" component="h2">
           {title}
         </Typography>
+        <Typography gutterBottom variant="h6" component="p">
+          Price:
+          {price}
+        </Typography>
         <Typography>{description}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
@@ -46,7 +54,7 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
             align="right"
             variant="h6"
           >
-            Price:
+            Subtotal:
             {price * count}
           </Typography>
           <TextField
@@ -62,7 +70,7 @@ export const CartItem = ({ id, title, description, price, img, count }) => {
                 min: 1,
               },
             }}
-            onChange={onChangeCount}
+            onBlur={onChangeCount}
           />
           <Button
             className={classes.cardActionsField}
