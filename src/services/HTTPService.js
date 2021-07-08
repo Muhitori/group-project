@@ -41,7 +41,7 @@ export class HTTPService {
     }
 
     throw new CustomError({
-      message: response.message,
+      message: await response.json(),
       status: response.status,
     });
   }

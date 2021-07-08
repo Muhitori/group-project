@@ -10,7 +10,7 @@ export const loggerMiddleware = (store) => (next) => (action) => {
 
 export const errorHandlingMiddleware = (store) => (next) => (action) => {
   if (action.type.includes('rejected')) {
-    store.dispatch(createError(action.error.name));
+    store.dispatch(createError(action.error.message));
   }
 
   const returnValue = next(action);
